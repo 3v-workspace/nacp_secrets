@@ -1,0 +1,1600 @@
+{
+  "openapi": "3.0",
+  "info": {
+    "description": "This is a simple API",
+    "version": "1.0.0",
+    "title": "Simple Inventory API",
+    "contact": {
+      "email": "you@your-company.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE - 2.0.html"
+    }
+  },
+  "definitions": {
+    "CorruptionAffected": {
+      "title": "CorruptionAffected",
+      "description": "Чи належить ваша посада до посад, пов'язаних з високим рівнем\nкорупційних ризиків, згідно з переліком, затвердженим Національним\nагентством з питань запобігання корупції?\n\n1 - Так\n2 - Ні\n0 - ???",
+      "enum": [
+        0,
+        1,
+        2
+      ]
+    },
+    "models__steps__s00_type_of_declaration__DataVariant1": {
+      "title": "DataVariant1",
+      "type": "object",
+      "properties": {
+        "declaration_type": {
+          "title": "Тип декларації",
+          "enum": [
+            "Щорічна"
+          ],
+          "type": "string"
+        },
+        "declaration_period": {
+          "title": "Звітний період",
+          "type": "string"
+        },
+        "declaration_year": {
+          "title": "Рік декларації",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "declaration_type",
+        "declaration_period",
+        "declaration_year"
+      ],
+      "additionalProperties": false
+    },
+    "models__steps__s00_type_of_declaration__DataVariant2": {
+      "title": "DataVariant2",
+      "type": "object",
+      "properties": {
+        "declarationType": {
+          "title": "Тип декларації",
+          "enum": [
+            "1"
+          ],
+          "type": "string"
+        },
+        "declarationYear1": {
+          "title": "Рік декларації",
+          "type": "string"
+        }
+      },
+      "required": [
+        "declarationType",
+        "declarationYear1"
+      ],
+      "additionalProperties": false
+    },
+    "TypeOfDeclarationStep": {
+      "title": "Тип декларації та звітний період",
+      "type": "object",
+      "properties": {
+        "data": {
+          "title": "Data",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/models__steps__s00_type_of_declaration__DataVariant1"
+            },
+            {
+              "$ref": "#/definitions/models__steps__s00_type_of_declaration__DataVariant2"
+            }
+          ]
+        }
+      },
+      "required": [
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "YesNoNumber": {
+      "title": "YesNoNumber",
+      "description": "1 - Так\n0 - Ні",
+      "enum": [
+        "1",
+        "0"
+      ],
+      "type": "string"
+    },
+    "ExtendedStatus": {
+      "title": "ExtendedStatus",
+      "description": "Від НАЗК:\n1 - Не застосовується\n2 - Не відомо\n3 - Член сім’ї не надав інформацію",
+      "enum": [
+        "0",
+        "1",
+        "3"
+      ],
+      "type": "string"
+    },
+    "PublicPerson": {
+      "title": "PublicPerson",
+      "description": "An enumeration.",
+      "enum": [
+        "Так",
+        "Ні",
+        "Народні депутати України",
+        "[Не застосовується]",
+        "Державні службовці, посади яких належать до категорії 'А'",
+        "Керівники органів прокуратури, керівники обласних територіальних органів Служби безпеки України, голови та судді апеляційних судів",
+        "Голови та судді Конституційного Суду України, Верховного Суду, вищих спеціалізованих судів",
+        "Керівники адміністративних, управлінських чи наглядових органів державних та казенних підприємств, господарських товариств, державна частка у статутному капіталі яких прямо чи опосередковано перевищує 50 відсотків",
+        "Президент України, Прем’єр-міністр України, члени Кабінету Міністрів України та їх заступники"
+      ],
+      "type": "string"
+    },
+    "YesNo": {
+      "title": "YesNo",
+      "description": "An enumeration.",
+      "enum": [
+        "Так",
+        "Ні"
+      ],
+      "type": "string"
+    },
+    "models__steps__s01_subject_info__PostCategory": {
+      "title": "PostCategory",
+      "description": "An enumeration.",
+      "enum": [
+        "А",
+        "Б",
+        "В",
+        "перша категорія",
+        "друга категорія",
+        "третя категорія",
+        "четверта категорія",
+        "п'ята категорія",
+        "шоста категорія",
+        "сьома категорія"
+      ],
+      "type": "string"
+    },
+    "Data": {
+      "title": "Data",
+      "type": "object",
+      "properties": {
+        "firstname": {
+          "title": "Firstname",
+          "type": "string"
+        },
+        "lastname": {
+          "title": "Lastname",
+          "type": "string"
+        },
+        "middlename": {
+          "title": "Middlename",
+          "type": "string"
+        },
+        "changedName": {
+          "$ref": "#/definitions/YesNoNumber"
+        },
+        "previous_firstname": {
+          "title": "Previous Firstname",
+          "type": "string"
+        },
+        "previous_lastname": {
+          "title": "Previous Lastname",
+          "type": "string"
+        },
+        "previous_middlename": {
+          "title": "Previous Middlename",
+          "type": "string"
+        },
+        "previous_middlename_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "taxNumber": {
+          "title": "Taxnumber",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "passport": {
+          "title": "Passport",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "passport_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "birthday": {
+          "title": "Birthday",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "responsiblePosition": {
+          "title": "Responsibleposition",
+          "type": "string"
+        },
+        "public_person": {
+          "$ref": "#/definitions/PublicPerson"
+        },
+        "public_person_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "sameRegLivingAddress": {
+          "$ref": "#/definitions/YesNoNumber"
+        },
+        "workPlace": {
+          "title": "Workplace",
+          "type": "string"
+        },
+        "workPost": {
+          "title": "Workpost",
+          "type": "string"
+        },
+        "unzr": {
+          "title": "Unzr",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "unzr_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "corruptionAffected": {
+          "$ref": "#/definitions/YesNo"
+        },
+        "postCategory": {
+          "title": "Postcategory",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/models__steps__s01_subject_info__PostCategory"
+            },
+            {
+              "enum": [
+                "[Не застосовується]"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "postCategory_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "postType": {
+          "title": "Posttype",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Не застосовується]"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "postType_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "postCode": {
+          "title": "Postcode",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "actual_apartmentsNum": {
+          "title": "Actual Apartmentsnum",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "actual_apartmentsNum_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "actual_city": {
+          "title": "Actual City",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "actual_cityPath": {
+          "title": "Actual Citypath",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "actual_cityType": {
+          "title": "Actual Citytype",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(\\w| |-|')+( ?/ (\\w| |-|')+?)*$"
+            },
+            {
+              "enum": [
+                "[Член сім'ї не надав інформацію]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Не застосовується]"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "actual_district": {
+          "title": "Actual District",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "actual_street": {
+          "title": "Actual Street",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "actual_street_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "actual_postCode": {
+          "title": "Actual Postcode",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "actual_region": {
+          "title": "Actual Region",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "actual_streetType": {
+          "title": "Actual Streettype",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "actual_streetType_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "actual_houseNum": {
+          "title": "Actual Housenum",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "actual_houseNum_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "actual_country": {
+          "title": "Actual Country",
+          "type": "integer"
+        },
+        "actual_housePartNum": {
+          "title": "Actual Housepartnum",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "actual_housePartNum_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "eng_actualAddress": {
+          "title": "Eng Actualaddress",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "eng_actualPostCode": {
+          "title": "Eng Actualpostcode",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "ukr_actualAddress": {
+          "title": "Ukr Actualaddress",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "region": {
+          "title": "Region",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "streetType": {
+          "title": "Streettype",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "streetType_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "street": {
+          "title": "Street",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "district": {
+          "title": "District",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "city": {
+          "title": "City",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(\\d+\\.){6,8}\\d+$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Член сім'ї не надав інформацію]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "city_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "country": {
+          "title": "Country",
+          "type": "integer"
+        },
+        "cityType": {
+          "title": "Citytype",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(\\w| |-|')+( ?/ (\\w| |-|')+?)*$"
+            },
+            {
+              "enum": [
+                "[Член сім'ї не надав інформацію]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Не застосовується]"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "housePartNum": {
+          "title": "Номер корпусу",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "housePartNum_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "apartmentsNum": {
+          "title": "Apartmentsnum",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "apartmentsNum_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "cityPath": {
+          "title": "Citypath",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "houseNum": {
+          "title": "Housenum",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "houseNum_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        }
+      },
+      "required": [
+        "firstname",
+        "lastname",
+        "middlename",
+        "changedName",
+        "taxNumber",
+        "passport",
+        "birthday",
+        "responsiblePosition",
+        "public_person",
+        "sameRegLivingAddress",
+        "workPlace",
+        "workPost",
+        "unzr",
+        "corruptionAffected",
+        "postCategory",
+        "postType",
+        "postCode",
+        "region",
+        "streetType",
+        "street",
+        "country",
+        "cityType",
+        "housePartNum",
+        "apartmentsNum",
+        "cityPath",
+        "houseNum"
+      ],
+      "additionalProperties": false
+    },
+    "SubjectInfoStep": {
+      "title": "Інформація про суб'єкта декларування",
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "required": [
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "SubjectRelation": {
+      "title": "SubjectRelation",
+      "description": "An enumeration.",
+      "enum": [
+        "дружина",
+        "син",
+        "дочка",
+        "чоловік",
+        "онук",
+        "мати",
+        "свекруха",
+        "свекор",
+        "батько",
+        "теща",
+        "рідний брат",
+        "баба",
+        "падчерка",
+        "пасинок",
+        "рідна сестра",
+        "особа, яка перебуває під піклуванням згаданого суб’єкта",
+        "онучка",
+        "вітчим",
+        "зять",
+        "невістка",
+        "інший зв'язок",
+        "тесть",
+        "усиновлений",
+        "дід",
+        "особа, яка перебуває під опікою",
+        "особи, які спільно проживають, але не перебувають у шлюбі"
+      ],
+      "type": "string"
+    },
+    "models__steps__s02_family_members__DataVariant1": {
+      "title": "DataVariant1",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "integer"
+        },
+        "eng_identification_code": {
+          "title": "Eng Identification Code",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "eng_identification_code_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "birthday": {
+          "title": "Birthday",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "birthday_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "cityType": {
+          "title": "Citytype",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(\\w| |-|')+( ?/ (\\w| |-|')+?)*$"
+            },
+            {
+              "enum": [
+                "[Член сім'ї не надав інформацію]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Не застосовується]"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "usage": {
+          "title": "Usage",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
+        },
+        "changedName": {
+          "$ref": "#/definitions/YesNoNumber"
+        },
+        "citizenship": {
+          "title": "Citizenship",
+          "type": "integer"
+        },
+        "district": {
+          "title": "District",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "district_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "city": {
+          "title": "City",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(\\d+\\.){6,8}\\d+$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Член сім'ї не надав інформацію]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "city_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "cityPath": {
+          "title": "Citypath",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "postCode": {
+          "title": "Postcode",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "postCode_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "apartmentsNum": {
+          "title": "Apartmentsnum",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "apartmentsNum_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "region": {
+          "title": "Region",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "region_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "street": {
+          "title": "Street",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "street_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "streetType": {
+          "title": "Streettype",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "streetType_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "housePartNum": {
+          "title": "Номер корпусу",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "housePartNum_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "houseNum": {
+          "title": "Housenum",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "houseNum_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "subjectRelation": {
+          "$ref": "#/definitions/SubjectRelation"
+        },
+        "firstname": {
+          "title": "Firstname",
+          "type": "string"
+        },
+        "lastname": {
+          "title": "Lastname",
+          "type": "string"
+        },
+        "middlename": {
+          "title": "Middlename",
+          "type": "string"
+        },
+        "middlename_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "previous_firstname": {
+          "title": "Previous Firstname",
+          "type": "string"
+        },
+        "previous_lastname": {
+          "title": "Previous Lastname",
+          "type": "string"
+        },
+        "previous_middlename": {
+          "title": "Previous Middlename",
+          "type": "string"
+        },
+        "previous_middlename_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "country": {
+          "title": "Country",
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "enum": [
+                "[Член сім'ї не надав інформацію]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Не застосовується]"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "country_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "taxNumber": {
+          "title": "Taxnumber",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "taxNumber_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "unzr": {
+          "title": "Unzr",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "unzr_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "passport": {
+          "title": "Passport",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "passport_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        }
+      },
+      "required": [
+        "id",
+        "birthday",
+        "changedName",
+        "citizenship",
+        "subjectRelation",
+        "firstname",
+        "lastname",
+        "middlename",
+        "country",
+        "taxNumber",
+        "unzr",
+        "passport"
+      ],
+      "additionalProperties": false
+    },
+    "models__steps__s02_family_members__DataVariant2": {
+      "title": "DataVariant2",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "integer"
+        },
+        "eng_identification_code": {
+          "title": "Eng Identification Code",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "eng_identification_code_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "birthday": {
+          "title": "Birthday",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "birthday_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "cityType": {
+          "title": "Citytype",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(\\w| |-|')+( ?/ (\\w| |-|')+?)*$"
+            },
+            {
+              "enum": [
+                "[Член сім'ї не надав інформацію]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Не застосовується]"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "usage": {
+          "title": "Usage",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
+        },
+        "changedName": {
+          "$ref": "#/definitions/YesNoNumber"
+        },
+        "citizenship": {
+          "title": "Citizenship",
+          "type": "integer"
+        },
+        "district": {
+          "title": "District",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "district_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "city": {
+          "title": "City",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(\\d+\\.){6,8}\\d+$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Член сім'ї не надав інформацію]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "city_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "cityPath": {
+          "title": "Citypath",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "postCode": {
+          "title": "Postcode",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "postCode_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "apartmentsNum": {
+          "title": "Apartmentsnum",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "apartmentsNum_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "region": {
+          "title": "Region",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "region_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "street": {
+          "title": "Street",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "street_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "streetType": {
+          "title": "Streettype",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "streetType_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "housePartNum": {
+          "title": "Номер корпусу",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "housePartNum_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "houseNum": {
+          "title": "Housenum",
+          "anyOf": [
+            {
+              "enum": [
+                "[Конфіденційна інформація]"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "houseNum_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "subjectRelation": {
+          "$ref": "#/definitions/SubjectRelation"
+        },
+        "eng_full_name": {
+          "title": "Eng Full Name",
+          "type": "string"
+        },
+        "ukr_full_name": {
+          "title": "Ukr Full Name",
+          "type": "string"
+        },
+        "eng_full_address": {
+          "title": "Eng Full Address",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "eng_full_address_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        },
+        "ukr_full_address": {
+          "title": "Ukr Full Address",
+          "enum": [
+            "[Конфіденційна інформація]"
+          ],
+          "type": "string"
+        },
+        "ukr_full_address_extendedstatus": {
+          "$ref": "#/definitions/ExtendedStatus"
+        }
+      },
+      "required": [
+        "id",
+        "birthday",
+        "changedName",
+        "citizenship",
+        "subjectRelation",
+        "eng_full_name",
+        "ukr_full_name",
+        "eng_full_address",
+        "ukr_full_address"
+      ],
+      "additionalProperties": false
+    },
+    "FamilyMembersStep": {
+      "title": "Інформація про членів сім'ї суб'єкта декларування",
+      "type": "object",
+      "properties": {
+        "data": {
+          "title": "Data",
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models__steps__s02_family_members__DataVariant1"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models__steps__s02_family_members__DataVariant2"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "DataV3": {
+      "title": "DataV3",
+      "type": "object",
+      "properties": {
+        "step_0": {
+          "$ref": "#/definitions/TypeOfDeclarationStep"
+        },
+        "step_1": {
+          "$ref": "#/definitions/SubjectInfoStep"
+        },
+        "step_2": {
+          "title": "Step 2",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/FamilyMembersStep"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "object"
+              },
+              "minItems": 0,
+              "maxItems": 0
+            }
+          ]
+        },
+        "step_3": {
+          "title": "Step 3",
+          "type": "object"
+        },
+        "step_4": {
+          "title": "Step 4",
+          "type": "object"
+        },
+        "step_5": {
+          "title": "Step 5",
+          "type": "object"
+        },
+        "step_6": {
+          "title": "Step 6",
+          "type": "object"
+        },
+        "step_7": {
+          "title": "Step 7",
+          "type": "object"
+        },
+        "step_8": {
+          "title": "Step 8",
+          "type": "object"
+        },
+        "step_9": {
+          "title": "Step 9",
+          "type": "object"
+        },
+        "step_10": {
+          "title": "Step 10",
+          "type": "object"
+        },
+        "step_11": {
+          "title": "Step 11",
+          "type": "object"
+        },
+        "step_12": {
+          "title": "Step 12",
+          "type": "object"
+        },
+        "step_13": {
+          "title": "Step 13",
+          "type": "object"
+        },
+        "step_14": {
+          "title": "Step 14",
+          "type": "object"
+        },
+        "step_15": {
+          "title": "Step 15",
+          "type": "object"
+        },
+        "step_16": {
+          "title": "Step 16",
+          "type": "object"
+        },
+        "step_17": {
+          "title": "Step 17",
+          "type": "object"
+        }
+      },
+      "required": [
+        "step_0",
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4",
+        "step_5",
+        "step_6",
+        "step_7",
+        "step_8",
+        "step_9",
+        "step_10",
+        "step_11",
+        "step_12",
+        "step_13",
+        "step_14",
+        "step_15",
+        "step_16",
+        "step_17"
+      ],
+      "additionalProperties": false
+    },
+    "models__declaration__PostCategory": {
+      "title": "PostCategory",
+      "description": "З листів:\n\nА,Б,В, перша категорія, друга категорія, третя категорія,\nчетверта категорія, п’ята категорія,\nшоста категорія, сьома категорія, [Не застосовується].",
+      "enum": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "PostType": {
+      "title": "PostType",
+      "description": "Інформація для поля  postType з листів:\n\nПосада державної служби, Посада в органах місцевого\nсамоврядування, Посадова особа юридичної особи публічного права,\n[Не застосовується].",
+      "enum": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "Type": {
+      "title": "Type",
+      "description": "1 - декларація\n2 - повідомлення про суттєві зміни в майновому стані\n3 - виправлена декларація",
+      "enum": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  "paths": {
+    "/v2/documents/{id}": {
+      "get": {
+        "summary": "NACP Retrieve Declaration",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "UUID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "title": "Щорічна декларація V3",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "title": "Id",
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "corruption_affected": {
+                          "$ref": "#/definitions/CorruptionAffected"
+                        },
+                        "data": {
+                          "$ref": "#/definitions/DataV3"
+                        },
+                        "declaration_type": {
+                          "title": "Declaration Type",
+                          "enum": [
+                            1
+                          ],
+                          "type": "integer"
+                        },
+                        "declaration_year": {
+                          "title": "Рік декларації",
+                          "minimum": 1800,
+                          "maximum": 2021,
+                          "type": "integer"
+                        },
+                        "post_category": {
+                          "$ref": "#/definitions/models__declaration__PostCategory"
+                        },
+                        "post_type": {
+                          "$ref": "#/definitions/PostType"
+                        },
+                        "responsible_position": {
+                          "title": "Responsible Position",
+                          "type": "integer"
+                        },
+                        "schema_version": {
+                          "title": "Schema Version",
+                          "enum": [
+                            3
+                          ],
+                          "type": "integer"
+                        },
+                        "type": {
+                          "$ref": "#/definitions/Type"
+                        },
+                        "user_declarant_id": {
+                          "title": "User Declarant Id",
+                          "type": "integer"
+                        },
+                        "date": {
+                          "title": "Date",
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "corruption_affected",
+                        "data",
+                        "declaration_type",
+                        "declaration_year",
+                        "post_category",
+                        "post_type",
+                        "responsible_position",
+                        "schema_version",
+                        "type",
+                        "user_declarant_id",
+                        "date"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/documents": {
+      "get": {
+        "summary": "NACP List Declarations",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "user_declaration_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "declaration_type",
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5
+            }
+          },
+          {
+            "in": "query",
+            "name": "declaration_year",
+            "schema": {
+              "type": "number",
+              "maximum": 2021,
+              "minimum": 2015
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ]
+      }
+    }
+  }
+}
