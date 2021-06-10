@@ -10,17 +10,16 @@ definitions = d1_schema.pop('definitions')
 schema = {
     'openapi': '3.0',
     'info': {
-        'description': 'This is a simple API',
-        'version': '1.0.0',
-        'title': 'Simple Inventory API',
-        # put the contact info for your development or API team
+        # 'description': '',
+        'version': '0.1.0',
+        'title': 'NACP Declarations API Documentation',
         'contact': {
-            'email': 'you@your-company.com'
+            'email': 'roman.tiukh@dataocean.us'
         },
-        'license': {
-            'name': 'Apache 2.0',
-            'url': 'http://www.apache.org/licenses/LICENSE - 2.0.html'
-        },
+        # 'license': {
+        #     'name': 'Apache 2.0',
+        #     'url': 'http://www.apache.org/licenses/LICENSE - 2.0.html'
+        # },
     },
     'definitions': definitions,
     'paths': {

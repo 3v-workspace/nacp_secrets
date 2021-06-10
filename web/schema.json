@@ -1,15 +1,10 @@
 {
   "openapi": "3.0",
   "info": {
-    "description": "This is a simple API",
-    "version": "1.0.0",
-    "title": "Simple Inventory API",
+    "version": "0.1.0",
+    "title": "NACP Declarations API Documentation",
     "contact": {
-      "email": "you@your-company.com"
-    },
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE - 2.0.html"
+      "email": "roman.tiukh@dataocean.us"
     }
   },
   "definitions": {
