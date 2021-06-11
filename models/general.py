@@ -80,7 +80,7 @@ FamilyMemberNotProvideInformation = Literal["[Член сім'ї не надав
 EmptyString = Literal[""]
 
 City = Optional[Union[
-    constr(regex=r'^(\d+\.){6,8}\d+$'),
+    constr(regex=r'^(\d+\.){2,8}\d+$'),
     Literal[
         '[Не застосовується]',
         "[Член сім'ї не надав інформацію]",
@@ -89,7 +89,7 @@ City = Optional[Union[
 ]]
 
 CityType = Union[
-    constr(regex=r"^(\w| |-|')+( ?/ (\w| |-|')+?)*$"),
+    constr(regex=r"^(\w|[ '.-])+( ?/ ?(\w|[ '.-])+?)*$"),
     Literal[
         '[Не застосовується]',
         "[Член сім'ї не надав інформацію]",

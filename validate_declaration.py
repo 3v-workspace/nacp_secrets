@@ -123,11 +123,11 @@ def validate_all():
             validate(declaration)
         except ValidationError as e:
             pprint(declaration)
+            print(f'index = {i}')
             flatten_errors(declaration, e.raw_errors)
             exit()
             # make_error_three(e)
             # exit()
-            print(f'index = {i}')
             for error in e.errors():
                 loc = '.'.join([str(x) for x in error['loc']])
                 val = declaration

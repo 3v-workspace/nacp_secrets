@@ -218,7 +218,7 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^(\\w| |-|')+( ?/ (\\w| |-|')+?)*$"
+              "pattern": "^(\\w|[ '.-])+( ?/ ?(\\w|[ '.-])+?)*$"
             },
             {
               "enum": [
@@ -280,7 +280,7 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^(\\d+\\.){6,8}\\d+$"
+              "pattern": "^(\\d+\\.){2,8}\\d+$"
             },
             {
               "enum": [
@@ -301,7 +301,7 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^(\\w| |-|')+( ?/ (\\w| |-|')+?)*$"
+              "pattern": "^(\\w|[ '.-])+( ?/ ?(\\w|[ '.-])+?)*$"
             },
             {
               "enum": [
@@ -433,121 +433,13 @@
       ],
       "type": "string"
     },
-    "DataV3Variant1": {
-      "title": "DataV3Variant1",
+    "models__steps__s02_family_members__Data": {
+      "title": "Data",
       "type": "object",
       "properties": {
         "id": {
           "title": "Id",
           "type": "integer"
-        },
-        "eng_identification_code": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "birthday": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "cityType": {
-          "title": "Citytype",
-          "anyOf": [
-            {
-              "type": "string",
-              "pattern": "^(\\w| |-|')+( ?/ (\\w| |-|')+?)*$"
-            },
-            {
-              "enum": [
-                "[Не застосовується]",
-                "[Член сім'ї не надав інформацію]"
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "usage": {
-          "title": "Usage",
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          }
-        },
-        "changedName": {
-          "$ref": "#/definitions/YesNoNumber"
-        },
-        "citizenship": {
-          "title": "Citizenship",
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "enum": [
-                "[Не застосовується]"
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "district": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "city": {
-          "title": "City",
-          "anyOf": [
-            {
-              "type": "string",
-              "pattern": "^(\\d+\\.){6,8}\\d+$"
-            },
-            {
-              "enum": [
-                "[Не застосовується]",
-                "[Член сім'ї не надав інформацію]",
-                ""
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "cityPath": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "postCode": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "apartmentsNum": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "region": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "street": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "streetType": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "housePartNum": {
-          "title": "Номер корпусу",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ConfidentialInformation"
-            }
-          ]
-        },
-        "houseNum": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "unzr": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "subjectRelation": {
-          "$ref": "#/definitions/SubjectRelation"
         },
         "firstname": {
           "title": "Firstname",
@@ -560,6 +452,51 @@
         "middlename": {
           "title": "Middlename",
           "type": "string"
+        },
+        "country": {
+          "title": "Country",
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "eng_full_name": {
+          "title": "Eng Full Name",
+          "type": "string"
+        },
+        "ukr_full_name": {
+          "title": "Ukr Full Name",
+          "type": "string"
+        },
+        "no_taxNumber": {
+          "$ref": "#/definitions/YesNoNumber"
+        },
+        "eng_firstname": {
+          "title": "Eng Firstname",
+          "type": "string"
+        },
+        "eng_lastname": {
+          "title": "Eng Lastname",
+          "type": "string"
+        },
+        "eng_middlename": {
+          "title": "Eng Middlename",
+          "type": "string"
+        },
+        "identificationCode": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "passportCode": {
+          "$ref": "#/definitions/ConfidentialInformation"
         },
         "previous_firstname": {
           "title": "Previous Firstname",
@@ -579,47 +516,6 @@
         "passport": {
           "$ref": "#/definitions/ConfidentialInformation"
         },
-        "country": {
-          "title": "Country",
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "enum": [
-                "[Член сім'ї не надав інформацію]"
-              ],
-              "type": "string"
-            },
-            {
-              "enum": [
-                "[Не застосовується]"
-              ],
-              "type": "string"
-            }
-          ]
-        }
-      },
-      "required": [
-        "id",
-        "changedName",
-        "citizenship",
-        "subjectRelation",
-        "firstname",
-        "lastname",
-        "middlename",
-        "country"
-      ],
-      "additionalProperties": false
-    },
-    "DataV3Variant2": {
-      "title": "DataV3Variant2",
-      "type": "object",
-      "properties": {
-        "id": {
-          "title": "Id",
-          "type": "integer"
-        },
         "eng_identification_code": {
           "$ref": "#/definitions/ConfidentialInformation"
         },
@@ -631,7 +527,7 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^(\\w| |-|')+( ?/ (\\w| |-|')+?)*$"
+              "pattern": "^(\\w|[ '.-])+( ?/ ?(\\w|[ '.-])+?)*$"
             },
             {
               "enum": [
@@ -681,7 +577,7 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^(\\d+\\.){6,8}\\d+$"
+              "pattern": "^(\\d+\\.){2,8}\\d+$"
             },
             {
               "enum": [
@@ -725,35 +621,26 @@
         "unzr": {
           "$ref": "#/definitions/ConfidentialInformation"
         },
-        "subjectRelation": {
-          "$ref": "#/definitions/SubjectRelation"
-        },
-        "eng_full_name": {
-          "title": "Eng Full Name",
-          "type": "string"
-        },
-        "ukr_full_name": {
-          "title": "Ukr Full Name",
-          "type": "string"
-        },
         "eng_full_address": {
           "$ref": "#/definitions/ConfidentialInformation"
         },
         "ukr_full_address": {
           "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "subjectRelation": {
+          "$ref": "#/definitions/SubjectRelation"
         }
       },
       "required": [
         "id",
+        "country",
         "changedName",
         "citizenship",
-        "subjectRelation",
-        "eng_full_name",
-        "ukr_full_name"
+        "subjectRelation"
       ],
       "additionalProperties": false
     },
-    "FamilyMembersStepV3": {
+    "FamilyMembersStep": {
       "title": "Інформація про членів сім'ї суб'єкта декларування",
       "type": "object",
       "properties": {
@@ -761,14 +648,7 @@
           "title": "Data",
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/DataV3Variant1"
-              },
-              {
-                "$ref": "#/definitions/DataV3Variant2"
-              }
-            ]
+            "$ref": "#/definitions/models__steps__s02_family_members__Data"
           }
         }
       },
@@ -777,143 +657,29 @@
       ],
       "additionalProperties": false
     },
-    "Right1": {
-      "title": "Right1",
+    "PersonInfo": {
+      "title": "PersonInfo",
+      "description": "1 - суб'єкт декларування;\nj - третя особа;\n{час_створення_запису} = відповідає id члена сім'ї суб'єкта декларування.",
+      "enum": [
+        "1",
+        "j"
+      ],
+      "type": "string"
+    },
+    "Right": {
+      "title": "Right",
       "type": "object",
       "properties": {
-        "ownershipType": {
-          "title": "Ownershiptype",
-          "enum": [
-            "Спільна власність",
-            "Власність",
-            "Інше право користування",
-            "Спільна сумісна власність",
-            "Оренда",
-            "Власником є третя особа",
-            "Право власності третьої особи, але наявні ознаки відповідно до частини 3 статті 46 ЗУ «Про запобігання корупції»",
-            "[Член сім'ї не надав інформацію]"
-          ],
-          "type": "string"
-        },
-        "otherOwnership": {
-          "title": "Otherownership",
-          "type": "string"
-        },
-        "percent-ownership": {
-          "title": "percent-ownership (%)",
-          "description": "Приклади: \"33,58\", \"33.58\", \"11\"",
-          "anyOf": [
-            {
-              "type": "string",
-              "pattern": "^\\d+([,.]\\d+)?$"
-            },
-            {
-              "enum": [
-                "[Не застосовується]",
-                "[Не відомо]",
-                "[Член сім'ї не надав інформацію]"
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "rights_id": {
-          "title": "Rights Id",
-          "type": "integer"
-        },
-        "ua_livingAddressFull": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "ua_regAddressFull": {
-          "title": "Ua Regaddressfull",
-          "enum": [
-            "[Конфіденційна інформація]",
-            ""
-          ],
-          "type": "string"
-        },
         "rightBelongs": {
           "title": "Rightbelongs",
           "anyOf": [
             {
-              "enum": [
-                "1"
-              ],
-              "type": "string"
+              "$ref": "#/definitions/PersonInfo"
             },
             {
               "type": "integer"
             }
           ]
-        }
-      },
-      "required": [
-        "ownershipType",
-        "rightBelongs"
-      ],
-      "additionalProperties": false
-    },
-    "Right2": {
-      "title": "Right2",
-      "type": "object",
-      "properties": {
-        "ownershipType": {
-          "title": "Ownershiptype",
-          "enum": [
-            "Спільна власність",
-            "Власність",
-            "Інше право користування",
-            "Спільна сумісна власність",
-            "Оренда",
-            "Власником є третя особа",
-            "Право власності третьої особи, але наявні ознаки відповідно до частини 3 статті 46 ЗУ «Про запобігання корупції»",
-            "[Член сім'ї не надав інформацію]"
-          ],
-          "type": "string"
-        },
-        "otherOwnership": {
-          "title": "Otherownership",
-          "type": "string"
-        },
-        "percent-ownership": {
-          "title": "percent-ownership (%)",
-          "description": "Приклади: \"33,58\", \"33.58\", \"11\"",
-          "anyOf": [
-            {
-              "type": "string",
-              "pattern": "^\\d+([,.]\\d+)?$"
-            },
-            {
-              "enum": [
-                "[Не застосовується]",
-                "[Не відомо]",
-                "[Член сім'ї не надав інформацію]"
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "rights_id": {
-          "title": "Rights Id",
-          "type": "integer"
-        },
-        "ua_livingAddressFull": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "ua_regAddressFull": {
-          "title": "Ua Regaddressfull",
-          "enum": [
-            "[Конфіденційна інформація]",
-            ""
-          ],
-          "type": "string"
-        },
-        "rightBelongs": {
-          "title": "Rightbelongs",
-          "enum": [
-            "j"
-          ],
-          "type": "string"
         },
         "citizen": {
           "title": "Citizen",
@@ -925,33 +691,162 @@
           ],
           "type": "string"
         },
-        "ua_birthday": {
-          "title": "Ua Birthday",
+        "ownershipType": {
+          "title": "Ownershiptype",
           "enum": [
-            "[Конфіденційна інформація]"
+            "Спільна власність",
+            "Власність",
+            "Інше право користування",
+            "Спільна сумісна власність",
+            "Оренда",
+            "Власником є третя особа",
+            "Право власності третьої особи, але наявні ознаки відповідно до частини 3 статті 46 ЗУ «Про запобігання корупції»",
+            "[Член сім'ї не надав інформацію]"
           ],
           "type": "string"
         },
-        "ua_firstname": {
-          "title": "Ua Firstname",
+        "otherOwnership": {
+          "title": "Otherownership",
           "type": "string"
         },
-        "ua_lastname": {
-          "title": "Ua Lastname",
+        "percent-ownership": {
+          "title": "percent-ownership (%)",
+          "description": "Приклади: \"33,58\", \"33.58\", \"11\"",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d+([,.]\\d+)?$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "rights_id": {
+          "title": "Rights Id",
+          "type": "integer"
+        },
+        "ua_buildType": {
+          "title": "Ua Buildtype",
+          "enum": [
+            "багатоквартирний будинок",
+            "житловий будинок"
+          ],
           "type": "string"
         },
-        "ua_middlename": {
-          "title": "Ua Middlename",
-          "type": "string"
+        "ua_city": {
+          "title": "Ua City",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(\\d+\\.){2,8}\\d+$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            },
+            {
+              "type": "string",
+              "pattern": "^(\\w|[ '.-])+( ?/ ?(\\w|[ '.-])+?)*$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Член сім'ї не надав інформацію]"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "rights_cityPath": {
+          "title": "Rights Citypath",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(\\d+\\.){2,8}\\d+$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "ua_houseNum": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_postCode": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_street": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_streetType": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_apartmentsNum": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_housePartNum": {
+          "$ref": "#/definitions/ConfidentialInformation"
         },
         "ua_sameRegLivingAddress": {
           "$ref": "#/definitions/YesNoNumber"
         },
+        "ua_livingAddressFull": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_regAddressFull": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_birthday": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
         "ua_taxNumber": {
-          "title": "Ua Taxnumber",
-          "enum": [
-            "[Конфіденційна інформація]"
-          ],
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_firstname": {
+          "title": "Ua Firstname",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Член сім'ї не надав інформацію]"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "ua_lastname": {
+          "title": "Ua Lastname",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Член сім'ї не надав інформацію]"
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "ua_middlename": {
+          "title": "Ua Middlename",
           "type": "string"
         },
         "eng_birthday": {
@@ -973,85 +868,6 @@
         "ukr_fullname": {
           "title": "Ukr Fullname",
           "type": "string"
-        }
-      },
-      "required": [
-        "ownershipType",
-        "rightBelongs",
-        "citizen"
-      ],
-      "additionalProperties": false
-    },
-    "Right3": {
-      "title": "Right3",
-      "type": "object",
-      "properties": {
-        "ownershipType": {
-          "title": "Ownershiptype",
-          "enum": [
-            "Спільна власність",
-            "Власність",
-            "Інше право користування",
-            "Спільна сумісна власність",
-            "Оренда",
-            "Власником є третя особа",
-            "Право власності третьої особи, але наявні ознаки відповідно до частини 3 статті 46 ЗУ «Про запобігання корупції»",
-            "[Член сім'ї не надав інформацію]"
-          ],
-          "type": "string"
-        },
-        "otherOwnership": {
-          "title": "Otherownership",
-          "type": "string"
-        },
-        "percent-ownership": {
-          "title": "percent-ownership (%)",
-          "description": "Приклади: \"33,58\", \"33.58\", \"11\"",
-          "anyOf": [
-            {
-              "type": "string",
-              "pattern": "^\\d+([,.]\\d+)?$"
-            },
-            {
-              "enum": [
-                "[Не застосовується]",
-                "[Не відомо]",
-                "[Член сім'ї не надав інформацію]"
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "rights_id": {
-          "title": "Rights Id",
-          "type": "integer"
-        },
-        "ua_livingAddressFull": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "ua_regAddressFull": {
-          "title": "Ua Regaddressfull",
-          "enum": [
-            "[Конфіденційна інформація]"
-          ],
-          "type": "string"
-        },
-        "rightBelongs": {
-          "title": "Rightbelongs",
-          "enum": [
-            "j"
-          ],
-          "type": "string"
-        },
-        "citizen": {
-          "title": "Citizen",
-          "enum": [
-            "Громадянин України",
-            "Юридична особа, зареєстрована в Україні",
-            "Іноземний громадянин",
-            "Юридична особа, зареєстрована за кордоном"
-          ],
-          "type": "string"
         },
         "ua_company_code": {
           "title": "Ua Company Code",
@@ -1064,7 +880,9 @@
             },
             {
               "enum": [
-                "[Не відомо]"
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]"
               ],
               "type": "string"
             }
@@ -1080,10 +898,17 @@
         },
         "eng_company_code": {
           "title": "Eng Company Code",
-          "enum": [
-            "[Не відомо]"
-          ],
-          "type": "string"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Не відомо]"
+              ],
+              "type": "string"
+            }
+          ]
         },
         "eng_company_name": {
           "title": "Eng Company Name",
@@ -1096,54 +921,16 @@
         "ukr_company_name": {
           "title": "Ukr Company Name",
           "type": "string"
-        },
-        "ua_birthday": {
-          "title": "Ua Birthday",
-          "enum": [
-            "[Конфіденційна інформація]"
-          ],
-          "type": "string"
-        },
-        "ua_firstname": {
-          "title": "Ua Firstname",
-          "enum": [
-            "[Член сім'ї не надав інформацію]"
-          ],
-          "type": "string"
-        },
-        "ua_lastname": {
-          "title": "Ua Lastname",
-          "enum": [
-            "[Член сім'ї не надав інформацію]"
-          ],
-          "type": "string"
-        },
-        "ua_taxNumber": {
-          "title": "Ua Taxnumber",
-          "enum": [
-            "[Конфіденційна інформація]"
-          ],
-          "type": "string"
         }
       },
       "required": [
-        "ownershipType",
         "rightBelongs",
-        "citizen"
+        "ownershipType"
       ],
       "additionalProperties": false
     },
-    "PersonInfo": {
-      "title": "PersonInfo",
-      "description": "1 - суб'єкт декларування;\nj - третя особа;\n{час_створення_запису} = відповідає id члена сім'ї суб'єкта декларування.",
-      "enum": [
-        "1",
-        "j"
-      ],
-      "type": "string"
-    },
-    "models__steps__s03_real_estate__DataV3": {
-      "title": "DataV3",
+    "models__steps__s03_real_estate__Data": {
+      "title": "Data",
       "type": "object",
       "properties": {
         "iteration": {
@@ -1159,7 +946,7 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^(\\d+\\.){6,8}\\d+$"
+              "pattern": "^(\\d+\\.){2,8}\\d+$"
             },
             {
               "enum": [
@@ -1191,6 +978,14 @@
             "Садовий (дачний) будинок",
             "Офіс",
             "Інше"
+          ],
+          "type": "string"
+        },
+        "ua_buildType": {
+          "title": "Ua Buildtype",
+          "enum": [
+            "багатоквартирний будинок",
+            "житловий будинок"
           ],
           "type": "string"
         },
@@ -1229,17 +1024,7 @@
           "title": "Rights",
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/Right1"
-              },
-              {
-                "$ref": "#/definitions/Right2"
-              },
-              {
-                "$ref": "#/definitions/Right3"
-              }
-            ]
+            "$ref": "#/definitions/Right"
           }
         },
         "ua_housePartNum": {
@@ -1253,7 +1038,7 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^(\\w| |-|')+( ?/ (\\w| |-|')+?)*$"
+              "pattern": "^(\\w|[ '.-])+( ?/ ?(\\w|[ '.-])+?)*$"
             },
             {
               "enum": [
@@ -1355,7 +1140,6 @@
         }
       },
       "required": [
-        "iteration",
         "country",
         "objectType",
         "owningDate",
@@ -1363,7 +1147,7 @@
       ],
       "additionalProperties": false
     },
-    "RealEstateStepV3": {
+    "RealEstateStep": {
       "title": "Об'єкти нерухомості",
       "type": "object",
       "properties": {
@@ -1371,7 +1155,7 @@
           "title": "Data",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/models__steps__s03_real_estate__DataV3"
+            "$ref": "#/definitions/models__steps__s03_real_estate__Data"
           }
         }
       },
@@ -1410,7 +1194,7 @@
           "title": "Step 2",
           "anyOf": [
             {
-              "$ref": "#/definitions/FamilyMembersStepV3"
+              "$ref": "#/definitions/FamilyMembersStep"
             },
             {
               "type": "array",
@@ -1426,7 +1210,7 @@
           "title": "Step 3",
           "anyOf": [
             {
-              "$ref": "#/definitions/RealEstateStepV3"
+              "$ref": "#/definitions/RealEstateStep"
             },
             {
               "$ref": "#/definitions/IsNotApplicable"
@@ -1620,7 +1404,7 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^(\\w| |-|')+( ?/ (\\w| |-|')+?)*$"
+              "pattern": "^(\\w|[ '.-])+( ?/ ?(\\w|[ '.-])+?)*$"
             },
             {
               "enum": [
@@ -1682,7 +1466,7 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^(\\d+\\.){6,8}\\d+$"
+              "pattern": "^(\\d+\\.){2,8}\\d+$"
             },
             {
               "enum": [
@@ -1703,7 +1487,7 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^(\\w| |-|')+( ?/ (\\w| |-|')+?)*$"
+              "pattern": "^(\\w|[ '.-])+( ?/ ?(\\w|[ '.-])+?)*$"
             },
             {
               "enum": [
@@ -1795,202 +1579,6 @@
       ],
       "additionalProperties": false
     },
-    "models__steps__s02_family_members__DataV2": {
-      "title": "DataV2",
-      "type": "object",
-      "properties": {
-        "id": {
-          "title": "Id",
-          "type": "integer"
-        },
-        "eng_identification_code": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "birthday": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "cityType": {
-          "title": "Citytype",
-          "anyOf": [
-            {
-              "type": "string",
-              "pattern": "^(\\w| |-|')+( ?/ (\\w| |-|')+?)*$"
-            },
-            {
-              "enum": [
-                "[Не застосовується]",
-                "[Член сім'ї не надав інформацію]"
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "usage": {
-          "title": "Usage",
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          }
-        },
-        "changedName": {
-          "$ref": "#/definitions/YesNoNumber"
-        },
-        "citizenship": {
-          "title": "Citizenship",
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "enum": [
-                "[Не застосовується]"
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "district": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "city": {
-          "title": "City",
-          "anyOf": [
-            {
-              "type": "string",
-              "pattern": "^(\\d+\\.){6,8}\\d+$"
-            },
-            {
-              "enum": [
-                "[Не застосовується]",
-                "[Член сім'ї не надав інформацію]",
-                ""
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "cityPath": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "postCode": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "apartmentsNum": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "region": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "street": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "streetType": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "housePartNum": {
-          "title": "Номер корпусу",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ConfidentialInformation"
-            }
-          ]
-        },
-        "houseNum": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "unzr": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "subjectRelation": {
-          "$ref": "#/definitions/SubjectRelation"
-        },
-        "firstname": {
-          "title": "Firstname",
-          "type": "string"
-        },
-        "lastname": {
-          "title": "Lastname",
-          "type": "string"
-        },
-        "middlename": {
-          "title": "Middlename",
-          "type": "string"
-        },
-        "previous_firstname": {
-          "title": "Previous Firstname",
-          "type": "string"
-        },
-        "previous_lastname": {
-          "title": "Previous Lastname",
-          "type": "string"
-        },
-        "previous_middlename": {
-          "title": "Previous Middlename",
-          "type": "string"
-        },
-        "taxNumber": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "passport": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "no_taxNumber": {
-          "$ref": "#/definitions/YesNoNumber"
-        },
-        "eng_firstname": {
-          "title": "Eng Firstname",
-          "type": "string"
-        },
-        "eng_lastname": {
-          "title": "Eng Lastname",
-          "type": "string"
-        },
-        "eng_middlename": {
-          "title": "Eng Middlename",
-          "type": "string"
-        },
-        "identificationCode": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "passportCode": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        }
-      },
-      "required": [
-        "id",
-        "changedName",
-        "citizenship",
-        "subjectRelation",
-        "firstname",
-        "lastname",
-        "middlename"
-      ],
-      "additionalProperties": false
-    },
-    "FamilyMembersStepV2": {
-      "title": "Інформація про членів сім'ї суб'єкта декларування",
-      "type": "object",
-      "properties": {
-        "data": {
-          "title": "Data",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/models__steps__s02_family_members__DataV2"
-          }
-        }
-      },
-      "required": [
-        "data"
-      ],
-      "additionalProperties": false
-    },
     "models__declaration__DataV2": {
       "title": "DataV2",
       "type": "object",
@@ -2005,7 +1593,7 @@
           "title": "Step 2",
           "anyOf": [
             {
-              "$ref": "#/definitions/FamilyMembersStepV2"
+              "$ref": "#/definitions/FamilyMembersStep"
             },
             {
               "type": "array",
@@ -2019,7 +1607,14 @@
         },
         "step_3": {
           "title": "Step 3",
-          "type": "object"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/RealEstateStep"
+            },
+            {
+              "$ref": "#/definitions/IsNotApplicable"
+            }
+          ]
         },
         "step_4": {
           "title": "Step 4",

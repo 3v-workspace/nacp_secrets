@@ -1,10 +1,9 @@
-from datetime import datetime, date
 from typing import List, Optional, Union, Literal
 from enum import Enum, IntEnum
 from pydantic import BaseModel, Field, Extra
 from models.general import NoDataEnum, CityType, YesNo, NoData, \
     YesNoNumber, ExtendedStatus, City, ConfidentialInformation, \
-    NotApplicable, FamilyMemberNotProvideInformation, EmptyString, NACPBaseModel
+    NotApplicable, FamilyMemberNotProvideInformation, EmptyString, NACPBaseModel, NotKnownFull
 
 PEP_RELATIONSHIPS_TYPES_TO_EN = {
     "ділові зв'язки": 'business relationship',
@@ -71,10 +70,32 @@ class SubjectRelation(str, Enum):
     persons_who_live_together = 'особи, які спільно проживають, але не перебувають у шлюбі'
 
 
-class BaseData(NACPBaseModel):
+class Data(NACPBaseModel):
     id: int
 
+    firstname: Optional[str]
+    lastname: Optional[str]
+    middlename: Optional[str]
+    country: Union[int, NotKnownFull]
+
+    eng_full_name: Optional[str]  # V2
+    ukr_full_name: Optional[str]  # V2
+
+    no_taxNumber: Optional[YesNoNumber]
+    eng_firstname: Optional[str]
+    eng_lastname: Optional[str]
+    eng_middlename: Optional[str]
+    identificationCode: ConfidentialInformation
+    passportCode: ConfidentialInformation
+
+    previous_firstname: Optional[str]
+    previous_lastname: Optional[str]
+    previous_middlename: Optional[str]
+    taxNumber: ConfidentialInformation
+    passport: ConfidentialInformation
+
     eng_identification_code: ConfidentialInformation
+
 
     birthday: ConfidentialInformation
     cityType: Optional[CityType]
@@ -93,91 +114,19 @@ class BaseData(NACPBaseModel):
     housePartNum: ConfidentialInformation = Field(title='Номер корпусу')
     houseNum: ConfidentialInformation
     unzr: ConfidentialInformation
+    eng_full_address: ConfidentialInformation
+    ukr_full_address: ConfidentialInformation
 
     subjectRelation: SubjectRelation
 
-
-    # housePartNum_extendedstatus: ExtendedStatus
-    # houseNum_extendedstatus: ExtendedStatus
-    # unzr_extendedstatus: ExtendedStatus
-    # birthday_extendedstatus: ExtendedStatus
-    # eng_identification_code_extendedstatus: ExtendedStatus
-    # district_extendedstatus: ExtendedStatus
-    # city_extendedstatus: ExtendedStatus
-    # citizenship_extendedstatus: ExtendedStatus
-    # apartmentsNum_extendedstatus: ExtendedStatus
-    # street_extendedstatus: ExtendedStatus
-    # postCode_extendedstatus: ExtendedStatus
-    # streetType_extendedstatus: ExtendedStatus
-    # region_extendedstatus: ExtendedStatus
-
     class Config:
         extra = Extra.forbid
 
 
-class BaseDataVariant1(BaseData):
-    firstname: str
-    lastname: str
-    middlename: str
-
-    previous_firstname: Optional[str]
-    previous_lastname: Optional[str]
-    previous_middlename: Optional[str]
-    taxNumber: ConfidentialInformation
-    passport: ConfidentialInformation
-
-    # passport_extendedstatus: ExtendedStatus
-    # middlename_extendedstatus: ExtendedStatus
-    # previous_middlename_extendedstatus: ExtendedStatus
-    # country_extendedstatus: ExtendedStatus
-    # taxNumber_extendedstatus: ExtendedStatus
-
-    class Config:
-        extra = Extra.forbid
-
-
-class DataV3Variant1(BaseDataVariant1):
-    country: Union[int, FamilyMemberNotProvideInformation, NotApplicable]
-
-
-class DataV3Variant2(BaseData):
-    eng_full_name: str
-    ukr_full_name: str
-
-    eng_full_address: ConfidentialInformation
-
-    ukr_full_address: ConfidentialInformation
-
-    # ukr_full_address_extendedstatus: ExtendedStatus
-    # eng_full_address_extendedstatus: ExtendedStatus
-
-    class Config:
-        extra = Extra.forbid
-
-
-class DataV2(BaseDataVariant1):
-    no_taxNumber: Optional[YesNoNumber]
-    eng_firstname: Optional[str]
-    eng_lastname: Optional[str]
-    eng_middlename: Optional[str]
-    identificationCode: ConfidentialInformation
-    passportCode: ConfidentialInformation
-
-    # identificationCode_extendedstatus: ExtendedStatus
-    # eng_middlename_extendedstatus: ExtendedStatus
-
-
-class FamilyMembersStepV3(NACPBaseModel):
-    data: List[Union[DataV3Variant1, DataV3Variant2]]
+class FamilyMembersStep(NACPBaseModel):
+    data: List[Data]
 
     class Config:
         extra = Extra.forbid
         title = "Інформація про членів сім'ї суб'єкта декларування"
 
-
-class FamilyMembersStepV2(NACPBaseModel):
-    data: List[DataV2]
-
-    class Config:
-        extra = Extra.forbid
-        title = "Інформація про членів сім'ї суб'єкта декларування"

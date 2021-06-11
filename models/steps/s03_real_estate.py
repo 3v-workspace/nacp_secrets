@@ -46,37 +46,41 @@ Citizen = Literal[
     'Юридична особа, зареєстрована за кордоном',
 ]
 
+BuildType = Literal[
+    'багатоквартирний будинок',
+    'житловий будинок',
+]
+
 # PersonInfo = Union[PersonInfo, int]
 
 
-class BaseRight(NACPBaseModel):
+class Right(NACPBaseModel):
+    rightBelongs: Union[PersonInfo, int]
+    citizen: Optional[Citizen]
     ownershipType: OwnershipType
     otherOwnership: Optional[str]
     percent_ownership: Optional[Union[constr(regex=r'^\d+([,.]\d+)?$'), NotKnownFull]] = Field(
         title='percent-ownership (%)', alias='percent-ownership',
-        description='Приклади: "33,58", "33.58", "11"'
+        description='Приклади: "33,58", "33.58", "11"',
     )
     rights_id: Optional[int]
-    ua_livingAddressFull: ConfidentialInformation
-    ua_regAddressFull: Optional[Literal["[Конфіденційна інформація]", ""]]
-
-    class Config:
-        extra = Extra.forbid
-
-
-class Right1(BaseRight):
-    rightBelongs: Union[Literal['1'], int]
-
-
-class Right2(BaseRight):
-    rightBelongs: Literal['j']
-    citizen: Citizen
-    ua_birthday: Optional[Literal["[Конфіденційна інформація]"]]
-    ua_firstname: Optional[str]
-    ua_lastname: Optional[str]
-    ua_middlename: Optional[str]
+    ua_buildType: Optional[BuildType]
+    ua_city: Optional[Union[City, CityType]]
+    rights_cityPath: Optional[City]
+    ua_houseNum: ConfidentialInformation
+    ua_postCode: ConfidentialInformation
+    ua_street: ConfidentialInformation
+    ua_streetType: ConfidentialInformation
+    ua_apartmentsNum: ConfidentialInformation
+    ua_housePartNum: ConfidentialInformation
     ua_sameRegLivingAddress: Optional[YesNoNumber]
-    ua_taxNumber: Optional[Literal["[Конфіденційна інформація]"]]
+    ua_livingAddressFull: ConfidentialInformation
+    ua_regAddressFull: ConfidentialInformation
+    ua_birthday: ConfidentialInformation
+    ua_taxNumber: ConfidentialInformation
+    ua_firstname: Optional[Union[str, Literal["[Член сім'ї не надав інформацію]"]]]
+    ua_lastname: Optional[Union[str, Literal["[Член сім'ї не надав інформацію]"]]]
+    ua_middlename: Optional[str]
 
     eng_birthday: ConfidentialInformation
     eng_fullname: Optional[str]
@@ -85,34 +89,28 @@ class Right2(BaseRight):
     ukr_actualAddress: ConfidentialInformation
     ukr_fullname: Optional[str]
 
-
-class Right3(BaseRight):
-    rightBelongs: Literal['j']
-    citizen: Citizen
-    ua_company_code: Optional[Union[constr(regex=r'^\d{8,10}$', max_length=10, min_length=8), NotKnown]]
+    ua_company_code: Optional[Union[constr(regex=r'^\d{8,10}$', max_length=10, min_length=8), NotKnownFull]]
     ua_company_name: Optional[str]
 
     eng_company_address: Optional[str]
-    eng_company_code: Optional[NotKnown]
+    eng_company_code: Optional[Union[str, NotKnown]]
     eng_company_name: Optional[str]
     ukr_company_address: Optional[str]
     ukr_company_name: Optional[str]
 
-    ua_birthday: Optional[Literal['[Конфіденційна інформація]']]
-    ua_firstname: Optional[Literal["[Член сім'ї не надав інформацію]"]]
-    ua_lastname: Optional[Literal["[Член сім'ї не надав інформацію]"]]
-    ua_regAddressFull: Optional[Literal['[Конфіденційна інформація]']]
-    ua_taxNumber: Optional[Literal['[Конфіденційна інформація]']]
+    class Config:
+        extra = Extra.forbid
 
 
-class BaseData(NACPBaseModel):
-    iteration: int
+class Data(NACPBaseModel):
+    iteration: Optional[int]
     country: int
     city: City
     ua_street: ConfidentialInformation
     ua_apartmentsNum: ConfidentialInformation
     ua_houseNum: ConfidentialInformation
     objectType: ObjectType
+    ua_buildType: Optional[BuildType]
     otherObjectType: Optional[str]
 
     owningDate: Union[constr(regex=r'^\d{2}\.\d{2}\.\d{4}$'), Literal["[Член сім'ї не надав інформацію]"]] \
@@ -122,7 +120,7 @@ class BaseData(NACPBaseModel):
     ua_postCode: ConfidentialInformation
     district: ConfidentialInformation
     district: ConfidentialInformation
-    rights: Optional[List[Union[Right1, Right2, Right3]]]
+    rights: Optional[List[Right]]
     ua_housePartNum: ConfidentialInformation
     region: ConfidentialInformation
     ua_cityType: Optional[CityType]
@@ -145,12 +143,8 @@ class BaseData(NACPBaseModel):
         extra = Extra.forbid
 
 
-class DataV3(BaseData):
-    pass
-
-
-class RealEstateStepV3(NACPBaseModel):
-    data: List[DataV3]
+class RealEstateStep(NACPBaseModel):
+    data: List[Data]
 
     class Config:
         extra = Extra.forbid

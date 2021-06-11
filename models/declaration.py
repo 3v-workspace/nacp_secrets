@@ -4,10 +4,10 @@ from enum import Enum, IntEnum
 from uuid import UUID
 from models.steps.s00_type_of_declaration import TypeOfDeclarationStep
 from models.steps.s01_subject_info import SubjectInfoStepV3, SubjectInfoStepV2
-from models.steps.s02_family_members import FamilyMembersStepV3, FamilyMembersStepV2
+from models.steps.s02_family_members import FamilyMembersStep
 from pydantic import BaseModel, Field, Extra, conlist
 
-from models.steps.s03_real_estate import RealEstateStepV3
+from models.steps.s03_real_estate import RealEstateStep
 
 
 class IsNotApplicable(BaseModel):
@@ -94,8 +94,8 @@ class PostCategory(Enum):
 class DataV3(BaseModel):
     step_0: TypeOfDeclarationStep
     step_1: SubjectInfoStepV3
-    step_2: Union[FamilyMembersStepV3, conlist(dict, max_items=0, min_items=0)]
-    step_3: Union[RealEstateStepV3, IsNotApplicable]
+    step_2: Union[FamilyMembersStep, conlist(dict, max_items=0, min_items=0)]
+    step_3: Union[RealEstateStep, IsNotApplicable]
     step_4: dict
     step_5: dict
     step_6: dict
@@ -118,8 +118,8 @@ class DataV3(BaseModel):
 class DataV2(BaseModel):
     step_0: TypeOfDeclarationStep
     step_1: SubjectInfoStepV2
-    step_2: Union[FamilyMembersStepV2, conlist(dict, max_items=0, min_items=0)]
-    step_3: dict
+    step_2: Union[FamilyMembersStep, conlist(dict, max_items=0, min_items=0)]
+    step_3: Union[RealEstateStep, IsNotApplicable]
     step_4: dict
     step_5: dict
     step_6: dict
