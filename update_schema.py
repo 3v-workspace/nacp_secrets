@@ -3,7 +3,7 @@ from datetime import date
 
 from models.declaration import AnnualDeclarationV3, AnnualDeclarationV2, Declaration
 
-annual_schema_v3 = Declaration.schema()
+annual_schema_v3 = AnnualDeclarationV3.schema()
 annual_schema_v2 = AnnualDeclarationV2.schema()
 definitions = annual_schema_v3.pop('definitions')
 definitions.update(annual_schema_v2.pop('definitions'))
