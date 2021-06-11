@@ -52,7 +52,7 @@ class BaseData(NACPBaseModel):
     sameRegLivingAddress: YesNoNumber
     workPlace: str
     workPost: str
-    unzr: ConfidentialInformation
+    unzr: ConfidentialInformation = Field(title='Унікальний номер запису в Єдиному державному демографічному реєстрі')
 
 
     postCode: ConfidentialInformation

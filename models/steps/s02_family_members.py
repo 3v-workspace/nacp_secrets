@@ -113,7 +113,7 @@ class Data(NACPBaseModel):
     streetType: ConfidentialInformation
     housePartNum: ConfidentialInformation = Field(title='Номер корпусу')
     houseNum: ConfidentialInformation
-    unzr: ConfidentialInformation
+    unzr: ConfidentialInformation = Field(title='Унікальний номер запису в Єдиному державному демографічному реєстрі')
     eng_full_address: ConfidentialInformation
     ukr_full_address: ConfidentialInformation
 
