@@ -1,11 +1,12 @@
 import json
 from datetime import date
 
-from models.declaration import AnnualDeclarationV3
+from models.declaration import AnnualDeclarationV3, AnnualDeclarationV2, Declaration
 
-d1_schema = AnnualDeclarationV3.schema()
-definitions = d1_schema.pop('definitions')
-# definitions.update(d2_schema.pop('definitions'))
+annual_schema_v3 = Declaration.schema()
+annual_schema_v2 = AnnualDeclarationV2.schema()
+definitions = annual_schema_v3.pop('definitions')
+definitions.update(annual_schema_v2.pop('definitions'))
 
 schema = {
     'openapi': '3.0',
@@ -42,7 +43,8 @@ schema = {
                             'application/json': {
                                 'schema': {
                                     'oneOf': [
-                                        d1_schema,
+                                        annual_schema_v3,
+                                        annual_schema_v2,
                                     ],
                                 },
                             },

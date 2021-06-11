@@ -3,9 +3,11 @@ from typing import List, Optional, Union, Literal
 from enum import Enum, IntEnum
 from uuid import UUID
 from models.steps.s00_type_of_declaration import TypeOfDeclarationStep
-from models.steps.s01_subject_info import SubjectInfoStep
-from models.steps.s02_family_members import FamilyMembersStep
+from models.steps.s01_subject_info import SubjectInfoStepV3, SubjectInfoStepV2
+from models.steps.s02_family_members import FamilyMembersStepV3, FamilyMembersStepV2
 from pydantic import BaseModel, Field, Extra, conlist
+
+from models.steps.s03_real_estate import RealEstateStepV3
 
 
 class IsNotApplicable(BaseModel):
@@ -91,10 +93,9 @@ class PostCategory(Enum):
 
 class DataV3(BaseModel):
     step_0: TypeOfDeclarationStep
-    step_1: SubjectInfoStep
-    # step_2: dict
-    step_2: Union[FamilyMembersStep, conlist(dict, max_items=0, min_items=0)]
-    step_3: dict
+    step_1: SubjectInfoStepV3
+    step_2: Union[FamilyMembersStepV3, conlist(dict, max_items=0, min_items=0)]
+    step_3: Union[RealEstateStepV3, IsNotApplicable]
     step_4: dict
     step_5: dict
     step_6: dict
@@ -109,6 +110,29 @@ class DataV3(BaseModel):
     step_15: dict
     step_16: dict
     step_17: dict
+
+    class Config:
+        extra = Extra.forbid
+
+
+class DataV2(BaseModel):
+    step_0: TypeOfDeclarationStep
+    step_1: SubjectInfoStepV2
+    step_2: Union[FamilyMembersStepV2, conlist(dict, max_items=0, min_items=0)]
+    step_3: dict
+    step_4: dict
+    step_5: dict
+    step_6: dict
+    step_7: dict
+    step_8: dict
+    step_9: dict
+    step_10: dict
+    step_11: dict
+    step_12: dict
+    step_13: dict
+    step_14: dict
+    step_15: dict
+    step_16: dict
 
     class Config:
         extra = Extra.forbid
@@ -150,3 +174,13 @@ class AnnualDeclarationV3(Declaration):
     class Config:
         extra = Extra.forbid
         title = 'Щорічна декларація V3'
+
+
+class AnnualDeclarationV2(Declaration):
+    data: DataV2
+    declaration_type: Literal[1]
+    schema_version: Literal[2]
+
+    class Config:
+        extra = Extra.forbid
+        title = 'Щорічна декларація V2'
