@@ -1,17 +1,18 @@
-from datetime import datetime
-from typing import List, Optional, Union, Literal
-from enum import Enum, IntEnum
-from uuid import UUID
+from models.general import *
 from models.steps.s00_type_of_declaration import TypeOfDeclarationStep
-from models.steps.s01_subject_info import SubjectInfoStepV3, SubjectInfoStepV2
+from models.steps.s01_subject_info import SubjectInfoStep
 from models.steps.s02_family_members import FamilyMembersStep
-from pydantic import BaseModel, Field, Extra, conlist
-
 from models.steps.s03_real_estate import RealEstateStep
+from models.steps.s04_unfinished_constructions import UnfinishedConstructionsStep
+from models.steps.s05_movable_property import ValuableMovablePropertyStep
+from models.steps.s06_vehicle import VehiclePropertyStep
 
 
 class IsNotApplicable(BaseModel):
     isNotApplicable: Literal[1]
+
+    class Config:
+        extra = Extra.forbid
 
 
 class CorruptionAffected(Enum):
@@ -93,12 +94,12 @@ class PostCategory(Enum):
 
 class DataV3(BaseModel):
     step_0: TypeOfDeclarationStep
-    step_1: SubjectInfoStepV3
+    step_1: SubjectInfoStep
     step_2: Union[FamilyMembersStep, conlist(dict, max_items=0, min_items=0)]
     step_3: Union[RealEstateStep, IsNotApplicable]
-    step_4: dict
-    step_5: dict
-    step_6: dict
+    step_4: Union[UnfinishedConstructionsStep, IsNotApplicable]
+    step_5: Union[ValuableMovablePropertyStep, IsNotApplicable]
+    step_6: Union[VehiclePropertyStep, IsNotApplicable]
     step_7: dict
     step_8: dict
     step_9: dict
@@ -117,12 +118,12 @@ class DataV3(BaseModel):
 
 class DataV2(BaseModel):
     step_0: TypeOfDeclarationStep
-    step_1: SubjectInfoStepV2
+    step_1: SubjectInfoStep
     step_2: Union[FamilyMembersStep, conlist(dict, max_items=0, min_items=0)]
     step_3: Union[RealEstateStep, IsNotApplicable]
-    step_4: dict
-    step_5: dict
-    step_6: dict
+    step_4: Union[UnfinishedConstructionsStep, IsNotApplicable]
+    step_5: Union[ValuableMovablePropertyStep, IsNotApplicable]
+    step_6: Union[VehiclePropertyStep, IsNotApplicable]
     step_7: dict
     step_8: dict
     step_9: dict

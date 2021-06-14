@@ -1,10 +1,8 @@
-import re
-from enum import Enum
-from typing import Optional, Union, Literal
-
-from pydantic import BaseModel, Field, Extra, constr
-
-uuid_regex = r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{8}'
+from datetime import datetime, date
+from uuid import UUID
+from enum import Enum, IntEnum
+from typing import Optional, Union, Literal, List, TypeVar
+from pydantic import BaseModel, Field, Extra, constr, conlist, conint, PositiveInt, PositiveFloat
 
 
 class NACPBaseModel(BaseModel):
@@ -13,16 +11,6 @@ class NACPBaseModel(BaseModel):
         for key in remove_keys:
             del kwargs[key]
         super().__init__(**kwargs)
-
-
-NO_DATA = {
-    None,
-    '',
-    '[Не застосовується]',
-    '[Не відомо]',
-    "[Член сім'ї не надав інформацію]",
-    '[Конфіденційна інформація]'
-}
 
 
 class NoDataEnum(str, Enum):
@@ -41,13 +29,22 @@ class YesNo(str, Enum):
     NO = 'Ні'
 
 
-class YesNoNumber(str, Enum):
+class YesNoStrNum(str, Enum):
     """
     1 - Так
     0 - Ні
     """
     YES = '1'
     NO = '0'
+
+
+class YesNoInt(Enum):
+    """
+    1 - Так
+    0 - Ні
+    """
+    YES = 1
+    NO = 0
 
 
 class ExtendedStatus(str, Enum):
@@ -71,29 +68,26 @@ class ConfidentialInformation(str, Enum):
     EMPTY = ''
 
 
-# ConfidentialInformation = Literal['[Конфіденційна інформація]']
 ConfidentialInformation = Optional[ConfidentialInformation]
-NotApplicable = Literal['[Не застосовується]']
-NotKnown = Literal['[Не відомо]']
-NotKnownFull = Literal['[Не застосовується]', '[Не відомо]', "[Член сім'ї не надав інформацію]"]
-FamilyMemberNotProvideInformation = Literal["[Член сім'ї не надав інформацію]"]
-EmptyString = Literal[""]
+
+
+Unknown = Literal[
+    '[Не застосовується]',
+    '[Не відомо]',
+    "[Член сім'ї не надав інформацію]",
+    '',
+]
+
+UsefulStr = constr(regex=r'^(?!\[)(.|\n)+(?<!\])$')
 
 City = Optional[Union[
     constr(regex=r'^(\d+\.){2,8}\d+$'),
-    Literal[
-        '[Не застосовується]',
-        "[Член сім'ї не надав інформацію]",
-        '',
-    ],
+    Unknown,
 ]]
 
 CityType = Union[
-    constr(regex=r"^(\w|[ '.-])+( ?/ ?(\w|[ '.-])+?)*$"),
-    Literal[
-        '[Не застосовується]',
-        "[Член сім'ї не надав інформацію]",
-    ],
+    constr(regex=r"^(\w|[ '.\-\(\)])+( ?/ ?(\w|[ '.\-\(\)])+?)*$"),
+    Unknown,
 ]
 
 
@@ -102,3 +96,20 @@ class ChangesData(BaseModel):
 
     class Config:
         extra = Extra.forbid
+
+
+class PersonInfoEnum(Enum):
+    """
+    1 - суб'єкт декларування;
+    j - третя особа;
+    {час_створення_запису} = відповідає id члена сім'ї суб'єкта декларування.
+    """
+    SELF_NUM = 1
+    SELF = '1'
+    THIRD_PERSON = 'j'
+
+
+PersonInfo = TypeVar('PersonInfo', PersonInfoEnum, conint(gt=1))
+
+
+DateUK = constr(regex=r'^\d{2}\.\d{2}\.\d{4}$')

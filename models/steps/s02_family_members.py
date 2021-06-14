@@ -1,9 +1,4 @@
-from typing import List, Optional, Union, Literal
-from enum import Enum, IntEnum
-from pydantic import BaseModel, Field, Extra
-from models.general import NoDataEnum, CityType, YesNo, NoData, \
-    YesNoNumber, ExtendedStatus, City, ConfidentialInformation, \
-    NotApplicable, FamilyMemberNotProvideInformation, EmptyString, NACPBaseModel, NotKnownFull
+from models.general import *
 
 PEP_RELATIONSHIPS_TYPES_TO_EN = {
     "ділові зв'язки": 'business relationship',
@@ -67,44 +62,42 @@ class SubjectRelation(str, Enum):
     grandfather = 'дід'
     under_guardianship = 'особа, яка перебуває під опікою'
     guardian = 'опікун'
+    great_grandmother = 'прабаба'
     persons_who_live_together = 'особи, які спільно проживають, але не перебувають у шлюбі'
 
 
 class Data(NACPBaseModel):
     id: int
 
-    firstname: Optional[str]
-    lastname: Optional[str]
-    middlename: Optional[str]
-    country: Union[int, NotKnownFull]
+    firstname: Optional[UsefulStr]
+    lastname: Optional[UsefulStr]
+    middlename: Optional[Union[UsefulStr, Unknown]]
+    country: Optional[Union[int, Unknown]]
 
-    eng_full_name: Optional[str]  # V2
-    ukr_full_name: Optional[str]  # V2
+    eng_full_name: Optional[UsefulStr]  # V2
+    ukr_full_name: Optional[UsefulStr]  # V2
 
-    no_taxNumber: Optional[YesNoNumber]
-    eng_firstname: Optional[str]
-    eng_lastname: Optional[str]
-    eng_middlename: Optional[str]
-    identificationCode: ConfidentialInformation
-    passportCode: ConfidentialInformation
+    no_taxNumber: Optional[YesNoStrNum]
+    eng_firstname: Optional[UsefulStr]
+    eng_lastname: Optional[UsefulStr]
+    eng_middlename: Optional[Union[UsefulStr, Unknown]]
 
-    previous_firstname: Optional[str]
-    previous_lastname: Optional[str]
-    previous_middlename: Optional[str]
-    taxNumber: ConfidentialInformation
-    passport: ConfidentialInformation
-
-    eng_identification_code: ConfidentialInformation
-
-
-    birthday: ConfidentialInformation
+    previous_firstname: Optional[UsefulStr]
+    previous_lastname: Optional[UsefulStr]
+    previous_middlename: Optional[Union[UsefulStr, Unknown]]
     cityType: Optional[CityType]
     usage: Optional[List[Union[int, float]]]
-    changedName: YesNoNumber
-    citizenship: Union[int, NotApplicable]
-
-    district: ConfidentialInformation
+    changedName: YesNoStrNum
+    citizenship: Union[int, Unknown]
     city: City
+
+    identificationCode: ConfidentialInformation
+    passportCode: ConfidentialInformation
+    taxNumber: ConfidentialInformation
+    passport: ConfidentialInformation
+    eng_identification_code: ConfidentialInformation
+    birthday: ConfidentialInformation
+    district: ConfidentialInformation
     cityPath: ConfidentialInformation
     postCode: ConfidentialInformation
     apartmentsNum: ConfidentialInformation

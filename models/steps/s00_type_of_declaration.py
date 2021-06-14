@@ -1,14 +1,9 @@
-from datetime import datetime, date
-from typing import List, Optional, Union, Literal
-from enum import Enum, IntEnum
-from pydantic import BaseModel, Field, Extra
-
-from models.general import NACPBaseModel
+from models.general import *
 
 
 class DataVariant1(NACPBaseModel):
     declaration_type: Literal["Щорічна"] = Field(title='Тип декларації')
-    declaration_period: str = Field(title='Звітний період')
+    declaration_period: UsefulStr = Field(title='Звітний період')
     declaration_year: int = Field(title='Рік декларації')
 
     class Config:
@@ -17,7 +12,7 @@ class DataVariant1(NACPBaseModel):
 
 class DataVariant2(NACPBaseModel):
     declarationType: Literal["1"] = Field(title='Тип декларації')
-    declarationYear1: str = Field(title='Рік декларації')
+    declarationYear1: UsefulStr = Field(title='Рік декларації')
 
     class Config:
         extra = Extra.forbid

@@ -1,9 +1,4 @@
-from datetime import datetime, date
-from typing import List, Optional, Union, TypeVar, Literal
-from enum import Enum, IntEnum
-from pydantic import BaseModel, Field, Extra, constr
-from models.general import NoDataEnum, CityType, YesNo, NoData, YesNoNumber, ExtendedStatus, City, \
-    ConfidentialInformation, NotApplicable, EmptyString, NACPBaseModel
+from models.general import *
 
 
 class PostCategory(str, Enum):
@@ -36,103 +31,61 @@ class PublicPerson(str, Enum):
     HEAD3 = 'Президент України, Прем’єр-міністр України, члени Кабінету Міністрів України та їх заступники'
 
 
-class BaseData(NACPBaseModel):
-    firstname: str
-    lastname: str
-    middlename: Optional[str]
-
-    changedName: YesNoNumber
-    previous_firstname: Optional[str]
-    previous_lastname: Optional[str]
-    previous_middlename: Optional[str]
+class Data(NACPBaseModel):
+    firstname: UsefulStr
+    lastname: UsefulStr
+    middlename: Optional[UsefulStr]
+    changedName: YesNoStrNum
+    previous_firstname: Optional[UsefulStr]
+    previous_lastname: Optional[UsefulStr]
+    previous_middlename: Optional[Union[UsefulStr, Unknown]]
+    public_person: Optional[PublicPerson]
+    responsiblePosition: Optional[UsefulStr]
+    corruptionAffected: Optional[YesNo]
+    postType: Optional[Union[UsefulStr, Unknown]]
+    postCategory: Optional[Union[PostCategory, Unknown]]
+    sameRegLivingAddress: YesNoStrNum
+    workPlace: UsefulStr
+    workPost: UsefulStr
+    actual_cityType: Optional[CityType]
+    actual_country: Optional[int]
+    city: City
+    country: int
+    cityType: CityType
 
     taxNumber: ConfidentialInformation
     passport: ConfidentialInformation
     birthday: ConfidentialInformation
-    sameRegLivingAddress: YesNoNumber
-    workPlace: str
-    workPost: str
     unzr: ConfidentialInformation = Field(title='Унікальний номер запису в Єдиному державному демографічному реєстрі')
-
-
     postCode: ConfidentialInformation
-
+    actual_housePartNum: ConfidentialInformation
     actual_apartmentsNum: ConfidentialInformation
     actual_city: ConfidentialInformation
     actual_cityPath: ConfidentialInformation
-    actual_cityType: Optional[CityType]
     actual_district: ConfidentialInformation
     actual_street: ConfidentialInformation
     actual_postCode: ConfidentialInformation
     actual_region: ConfidentialInformation
     actual_streetType: ConfidentialInformation
     actual_houseNum: ConfidentialInformation
-    actual_country: Optional[int]
-    actual_housePartNum: ConfidentialInformation
-
     eng_actualAddress: ConfidentialInformation
     eng_actualPostCode: ConfidentialInformation
     ukr_actualAddress: ConfidentialInformation
-
     region: ConfidentialInformation
     streetType: ConfidentialInformation
     street: ConfidentialInformation
     district: ConfidentialInformation
-    city: City
-    country: int
-    cityType: CityType
     housePartNum: ConfidentialInformation = Field(title='Номер корпусу')
     apartmentsNum: ConfidentialInformation
     cityPath: ConfidentialInformation
     houseNum: ConfidentialInformation
 
-    # streetType_extendedstatus: ExtendedStatus
-    # city_extendedstatus: ExtendedStatus
-    # housePartNum_extendedstatus: ExtendedStatus
-    # apartmentsNum_extendedstatus: ExtendedStatus
-    # houseNum_extendedstatus: ExtendedStatus
-    # previous_middlename_extendedstatus: ExtendedStatus
-    # public_person_extendedstatus: ExtendedStatus
-    # unzr_extendedstatus: ExtendedStatus
-    # # passport_extendedstatus: ExtendedStatus
-    # postCategory_extendedstatus: ExtendedStatus
-    # postType_extendedstatus: ExtendedStatus
-    # actual_street_extendedstatus: ExtendedStatus
-    # actual_streetType_extendedstatus: ExtendedStatus
-    # actual_houseNum_extendedstatus: ExtendedStatus
-    # actual_housePartNum_extendedstatus: ExtendedStatus
-    # actual_apartmentsNum_extendedstatus: ExtendedStatus
-
     class Config:
         extra = Extra.forbid
 
 
-class DataV3(BaseData):
-    public_person: PublicPerson
-    responsiblePosition: str
-    corruptionAffected: YesNo
-    postType: Union[str, NotApplicable]
-    postCategory: Union[PostCategory, NotApplicable]
-
-
-class DataV2(BaseData):
-    public_person: Optional[PublicPerson]
-    responsiblePosition: Optional[str]
-    corruptionAffected: Optional[YesNo]
-    postType: Optional[Union[str, NotApplicable]]
-    postCategory: Optional[Union[PostCategory, NotApplicable]]
-
-
-class SubjectInfoStepV3(NACPBaseModel):
-    data: DataV3
-
-    class Config:
-        extra = Extra.forbid
-        title = "Інформація про суб'єкта декларування"
-
-
-class SubjectInfoStepV2(NACPBaseModel):
-    data: DataV2
+class SubjectInfoStep(NACPBaseModel):
+    data: Data
 
     class Config:
         extra = Extra.forbid
