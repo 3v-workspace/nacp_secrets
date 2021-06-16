@@ -6,6 +6,7 @@ from models.steps.s03_real_estate import RealEstateStep
 from models.steps.s04_unfinished_constructions import UnfinishedConstructionsStep
 from models.steps.s05_movable_property import ValuableMovablePropertyStep
 from models.steps.s06_vehicle import VehiclePropertyStep
+from models.steps.s07_securities import SecuritiesStep
 
 
 class IsNotApplicable(BaseModel):
@@ -100,7 +101,7 @@ class DataV3(BaseModel):
     step_4: Union[UnfinishedConstructionsStep, IsNotApplicable]
     step_5: Union[ValuableMovablePropertyStep, IsNotApplicable]
     step_6: Union[VehiclePropertyStep, IsNotApplicable]
-    step_7: dict
+    step_7: Union[SecuritiesStep, IsNotApplicable]
     step_8: dict
     step_9: dict
     step_10: dict
@@ -124,7 +125,7 @@ class DataV2(BaseModel):
     step_4: Union[UnfinishedConstructionsStep, IsNotApplicable]
     step_5: Union[ValuableMovablePropertyStep, IsNotApplicable]
     step_6: Union[VehiclePropertyStep, IsNotApplicable]
-    step_7: dict
+    step_7: Union[SecuritiesStep, IsNotApplicable]
     step_8: dict
     step_9: dict
     step_10: dict
