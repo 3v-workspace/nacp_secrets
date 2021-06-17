@@ -13,7 +13,7 @@ class PersonWhoCare(NACPBaseModel):
     ua_middlename: Optional[Union[UsefulStr, Unknown]]
 
     ua_sameRegLivingAddress: Optional[YesNoStrNum]
-    ua_company_code: Optional[Union[constr(regex=r'^\d{8}$', max_length=10, min_length=8), Unknown]]
+    ua_company_code: Optional[Union[constr(regex=r'^\d{8,10}$', max_length=10, min_length=8), Unknown]]
     ua_company_name: Optional[UsefulStr]
 
     ua_regAddressFull: ConfidentialInformation
@@ -27,7 +27,7 @@ class PersonWhoCare(NACPBaseModel):
 
 class Right(NACPBaseModel):
     ownershipType: OwnershipType
-    otherOwnership: Optional[Union[UsefulStr, Unknown]]
+    otherOwnership: Optional[Union[UsefulStr, Unknown]] = Field(description='Заповнено якщо ownershipType = "Інше"')
     rightBelongs: Union[PersonInfo, Unknown]
     rights_id: Optional[int]
     percent_ownership: Optional[Union[constr(regex=r'^\d+([,.]\d+)?$'), Unknown]] = Field(

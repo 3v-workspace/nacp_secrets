@@ -43,7 +43,7 @@ class Right(NACPBaseModel):
 
     citizen: Optional[Citizen]
     ownershipType: OwnershipType
-    otherOwnership: Optional[Union[UsefulStr, Unknown]]
+    otherOwnership: Optional[Union[UsefulStr, Unknown]] = Field(description='Заповнено якщо ownershipType = "Інше"')
     percent_ownership: Optional[Union[constr(regex=r'^\d+([,.]\d+)?$'), Unknown]] = Field(
         title='percent-ownership (%)', alias='percent-ownership',
         description='Приклади: "33,58", "33.58", "11"',

@@ -1,7 +1,7 @@
 from datetime import datetime, date
 from uuid import UUID
 from enum import Enum, IntEnum
-from typing import Optional, Union, Literal, List, TypeVar
+from typing import Optional, Union, Literal, List, TypeVar, Dict
 from pydantic import BaseModel, Field, Extra, constr, conlist, \
     conint, PositiveInt, PositiveFloat, EmailStr
 

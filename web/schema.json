@@ -807,6 +807,7 @@
         },
         "otherOwnership": {
           "title": "Otherownership",
+          "description": "Заповнено якщо ownershipType = \"Інше\"",
           "anyOf": [
             {
               "type": "string",
@@ -1398,6 +1399,7 @@
         },
         "otherOwnership": {
           "title": "Otherownership",
+          "description": "Заповнено якщо ownershipType = \"Інше\"",
           "anyOf": [
             {
               "type": "string",
@@ -1702,7 +1704,7 @@
               "type": "string",
               "minLength": 8,
               "maxLength": 10,
-              "pattern": "^\\d{8}$"
+              "pattern": "^\\d{8,10}$"
             },
             {
               "enum": [
@@ -4615,7 +4617,7 @@
                 "$ref": "#/definitions/models__steps__s09_trusts_legal_entity__DataV2"
               },
               {
-                "$ref": "#/definitions/models__steps__s09_trusts_legal_entity__DataV3"
+                "$ref": "#/definitions/DataV3"
               }
             ]
           }
@@ -4626,10 +4628,240 @@
       ],
       "additionalProperties": false
     },
-    "models__steps__s10_intangible_assets__DataV3": {
-      "title": "DataV3",
+    "models__steps__s10_intangible_assets__Right": {
+      "title": "Right",
       "type": "object",
-      "properties": {},
+      "properties": {
+        "rights_id": {
+          "title": "Rights Id",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PersonInfoEnum"
+            },
+            {
+              "type": "integer",
+              "exclusiveMinimum": 1
+            }
+          ]
+        },
+        "person": {
+          "title": "Person",
+          "description": "V2 field",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PersonInfoEnum"
+            },
+            {
+              "type": "integer",
+              "exclusiveMinimum": 1
+            }
+          ]
+        },
+        "ownershipType": {
+          "title": "Ownershiptype",
+          "enum": [
+            "Спільна власність",
+            "Власність",
+            "Інше право користування",
+            "Спільна сумісна власність",
+            "Оренда",
+            "Власником є третя особа",
+            "Право власності третьої особи, але наявні ознаки відповідно до частини 3 статті 46 ЗУ «Про запобігання корупції»",
+            "[Член сім'ї не надав інформацію]",
+            "[Не застосовується]"
+          ],
+          "type": "string"
+        },
+        "rightBelongs": {
+          "title": "Rightbelongs",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PersonInfoEnum"
+            },
+            {
+              "type": "integer",
+              "exclusiveMinimum": 1
+            }
+          ]
+        },
+        "percent-ownership": {
+          "title": "percent-ownership (%)",
+          "description": "Приклади: \"33,58\", \"33.58\", \"11\"",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d+([,.]\\d+)?$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "citizen": {
+          "title": "Citizen",
+          "enum": [
+            "Громадянин України",
+            "Юридична особа, зареєстрована в Україні",
+            "Іноземний громадянин",
+            "Юридична особа, зареєстрована за кордоном"
+          ],
+          "type": "string"
+        },
+        "ua_company_code": {
+          "title": "Ua Company Code",
+          "pattern": "^(\\d{8})$",
+          "type": "string"
+        },
+        "ua_company_name": {
+          "title": "Ua Company Name",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "ua_firstname": {
+          "title": "Ua Firstname",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "ua_lastname": {
+          "title": "Ua Lastname",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "ua_middlename": {
+          "title": "Ua Middlename",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "ua_sameRegLivingAddress": {
+          "$ref": "#/definitions/YesNoStrNum"
+        },
+        "ua_birthday": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_livingAddressFull": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_regAddressFull": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_taxNumber": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        }
+      },
+      "required": [
+        "ownershipType",
+        "rightBelongs"
+      ],
+      "additionalProperties": false
+    },
+    "models__steps__s10_intangible_assets__Data": {
+      "title": "Data",
+      "type": "object",
+      "properties": {
+        "rights": {
+          "title": "Rights",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models__steps__s10_intangible_assets__Right"
+          }
+        },
+        "iteration": {
+          "title": "Iteration",
+          "description": "Optional for V2",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        "person": {
+          "title": "Person",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PersonInfoEnum"
+            },
+            {
+              "type": "integer",
+              "exclusiveMinimum": 1
+            }
+          ]
+        },
+        "costDateOrigin": {
+          "title": "Costdateorigin",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d+$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "descriptionObject": {
+          "title": "Descriptionobject",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "objectType": {
+          "title": "Objecttype",
+          "enum": [
+            "Торгова марка чи комерційне найменування",
+            "Криптовалюта",
+            "Корисна модель",
+            "Авторське право",
+            "Винахід",
+            "Промисловий зразок",
+            "Інше"
+          ],
+          "type": "string"
+        },
+        "otherObjectType": {
+          "title": "Otherobjecttype",
+          "description": "Заповнено якщо objectType = \"Інше\"",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "owningDate": {
+          "title": "Owningdate",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d{2}\\.\\d{2}\\.\\d{4}$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "countObject": {
+          "title": "Countobject",
+          "pattern": "^\\d+([,]\\d+)?$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rights",
+        "costDateOrigin",
+        "descriptionObject",
+        "objectType",
+        "owningDate"
+      ],
       "additionalProperties": false
     },
     "IntangibleAssetsStep": {
@@ -4640,7 +4872,733 @@
           "title": "Data",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/models__steps__s10_intangible_assets__DataV3"
+            "$ref": "#/definitions/models__steps__s10_intangible_assets__Data"
+          }
+        }
+      },
+      "required": [
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "models__steps__s11_income_and_gifts__Right": {
+      "title": "Right",
+      "type": "object",
+      "properties": {
+        "rights_id": {
+          "title": "Rights Id",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PersonInfoEnum"
+            },
+            {
+              "type": "integer",
+              "exclusiveMinimum": 1
+            }
+          ]
+        },
+        "ownershipType": {
+          "title": "Ownershiptype",
+          "enum": [
+            "Спільна власність",
+            "Власність",
+            "Інше право користування",
+            "Спільна сумісна власність",
+            "Оренда",
+            "Власником є третя особа",
+            "Право власності третьої особи, але наявні ознаки відповідно до частини 3 статті 46 ЗУ «Про запобігання корупції»",
+            "[Член сім'ї не надав інформацію]",
+            "[Не застосовується]"
+          ],
+          "type": "string"
+        },
+        "otherOwnership": {
+          "title": "Otherownership",
+          "description": "Заповнено якщо ownershipType = \"Інше\"",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "rightBelongs": {
+          "title": "Rightbelongs",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PersonInfoEnum"
+            },
+            {
+              "type": "integer",
+              "exclusiveMinimum": 1
+            }
+          ]
+        },
+        "percent-ownership": {
+          "title": "percent-ownership (%)",
+          "description": "Приклади: \"33,58\", \"33.58\", \"11\"",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d+([,.]\\d+)?$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "citizen": {
+          "title": "Citizen",
+          "enum": [
+            "Громадянин України",
+            "Юридична особа, зареєстрована в Україні",
+            "Іноземний громадянин",
+            "Юридична особа, зареєстрована за кордоном"
+          ],
+          "type": "string"
+        },
+        "ua_company_code": {
+          "title": "Ua Company Code",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(\\d{5,10})$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "ua_company_name": {
+          "title": "Ua Company Name",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "ua_firstname": {
+          "title": "Ua Firstname",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "ua_lastname": {
+          "title": "Ua Lastname",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "ua_middlename": {
+          "title": "Ua Middlename",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "ua_sameRegLivingAddress": {
+          "$ref": "#/definitions/YesNoStrNum"
+        },
+        "ua_birthday": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_livingAddressFull": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_regAddressFull": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_taxNumber": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "eng_company_address": {
+          "title": "Eng Company Address",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "eng_company_code": {
+          "title": "Eng Company Code",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "eng_company_name": {
+          "title": "Eng Company Name",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "ukr_company_address": {
+          "title": "Ukr Company Address",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "ukr_company_name": {
+          "title": "Ukr Company Name",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ownershipType",
+        "rightBelongs"
+      ],
+      "additionalProperties": false
+    },
+    "RevenueSource": {
+      "title": "RevenueSource",
+      "type": "object",
+      "properties": {
+        "revenue_source": {
+          "title": "Revenue Source",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PersonInfoEnum"
+            },
+            {
+              "type": "integer",
+              "exclusiveMinimum": 1
+            }
+          ]
+        },
+        "revenue_source_type": {
+          "title": "Revenue Source Type",
+          "enum": [
+            "Громадянин України",
+            "Юридична особа, зареєстрована в Україні",
+            "Іноземний громадянин",
+            "Юридична особа, зареєстрована за кордоном"
+          ],
+          "type": "string"
+        },
+        "revenue_source_ua_company_code": {
+          "title": "Revenue Source Ua Company Code",
+          "enum": [
+            "[Не застосовується]",
+            "[Не відомо]",
+            "[Член сім'ї не надав інформацію]",
+            ""
+          ],
+          "type": "string"
+        },
+        "revenue_source_ua_company_name": {
+          "title": "Revenue Source Ua Company Name",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "revenue_source",
+        "revenue_source_type",
+        "revenue_source_ua_company_code",
+        "revenue_source_ua_company_name"
+      ],
+      "additionalProperties": false
+    },
+    "models__steps__s11_income_and_gifts__Data": {
+      "title": "Data",
+      "type": "object",
+      "properties": {
+        "rights": {
+          "title": "Rights",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models__steps__s11_income_and_gifts__Right"
+          }
+        },
+        "revenue_source": {
+          "title": "Revenue Source",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/RevenueSource"
+          }
+        },
+        "incomeSource": {
+          "title": "Incomesource",
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/PersonInfoEnum"
+                },
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 1
+                }
+              ]
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "iteration": {
+          "title": "Iteration",
+          "description": "Optional only for V2",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        "objectType": {
+          "title": "Objecttype",
+          "anyOf": [
+            {
+              "enum": [
+                "Заробітна плата отримана за основним місцем роботи",
+                "Дохід від надання майна в оренду",
+                "Благодійна допомога",
+                "Гонорари та інші виплати згідно з цивільно-правовим правочинами",
+                "Страхові виплати",
+                "Дохід від відчуження цінних паперів та корпоративних прав",
+                "Роялті",
+                "Спадщина",
+                "Дохід від зайняття незалежною професійною діяльністю",
+                "Дохід від відчуження нерухомого майна",
+                "Подарунок у грошовій формі",
+                "Дохід від відчуження рухомого майна (крім цінних паперів та корпоративних прав)",
+                "Дохід від відчуження рухомого майна ( крім цінних паперів та корпоративних прав)",
+                "Проценти",
+                "Пенсія",
+                "Дохід від зайняття підприємницькою діяльністю",
+                "Подарунок у негрошовій формі",
+                "Дивіденди",
+                "Заробітна плата отримана за сумісництвом",
+                "Приз",
+                "Інше"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "otherObjectType": {
+          "title": "Otherobjecttype",
+          "description": "Заповнено якщо objectType = \"Інше\"",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "person": {
+          "title": "Person",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PersonInfoEnum"
+            },
+            {
+              "type": "integer",
+              "exclusiveMinimum": 1
+            }
+          ]
+        },
+        "person_who_care": {
+          "title": "Person Who Care",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonWhoCare"
+          }
+        },
+        "sizeIncome": {
+          "title": "Sizeincome",
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "source_citizen": {
+          "title": "Source Citizen",
+          "anyOf": [
+            {
+              "enum": [
+                "Громадянин України",
+                "Юридична особа, зареєстрована в Україні",
+                "Іноземний громадянин",
+                "Юридична особа, зареєстрована за кордоном"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "source_ua_firstname": {
+          "title": "Source Ua Firstname",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "source_ua_lastname": {
+          "title": "Source Ua Lastname",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "source_ua_middlename": {
+          "title": "Source Ua Middlename",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "source_ukr_fullname": {
+          "title": "Source Ukr Fullname",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "source_eng_fullname": {
+          "title": "Source Eng Fullname",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "source_ua_sameRegLivingAddress": {
+          "$ref": "#/definitions/YesNoStrNum"
+        },
+        "source_ua_company_code": {
+          "title": "Source Ua Company Code",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d{2,12}$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "source_ua_company_name": {
+          "title": "Source Ua Company Name",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "source_ukr_company_name": {
+          "title": "Source Ukr Company Name",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "source_eng_company_address": {
+          "title": "Source Eng Company Address",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "source_ukr_company_address": {
+          "title": "Source Ukr Company Address",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "source_eng_company_code": {
+          "title": "Source Eng Company Code",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(\\w+)?\\d{5,12}$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "source_eng_company_name": {
+          "title": "Source Eng Company Name",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "source_ua_actualAddress": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "source_ua_birthday": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "source_ua_regAddress": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "source_ua_taxNumber": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "source_eng_birthday": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "source_eng_regAddress": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "source_eng_taxNumber": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "source_ukr_regAddress": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        }
+      },
+      "required": [
+        "objectType",
+        "sizeIncome"
+      ],
+      "additionalProperties": false
+    },
+    "IncomeAndGiftsStep": {
+      "title": "Доходи, у тому числі подарунки",
+      "type": "object",
+      "properties": {
+        "data": {
+          "title": "Data",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models__steps__s11_income_and_gifts__Data"
           }
         }
       },
@@ -4765,7 +5723,14 @@
         },
         "step_11": {
           "title": "Step 11",
-          "type": "object"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IncomeAndGiftsStep"
+            },
+            {
+              "$ref": "#/definitions/IsNotApplicable"
+            }
+          ]
         },
         "step_12": {
           "title": "Step 12",
@@ -5193,6 +6158,275 @@
       ],
       "additionalProperties": false
     },
+    "DataV3": {
+      "title": "DataV3",
+      "type": "object",
+      "properties": {
+        "person": {
+          "title": "Person",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PersonInfoEnum"
+            },
+            {
+              "type": "integer",
+              "exclusiveMinimum": 1
+            }
+          ]
+        },
+        "legalForm": {
+          "title": "Legalform",
+          "anyOf": [
+            {
+              "enum": [
+                "АДВОКАТСЬКЕ ОБ'ЄДНАННЯ",
+                "Адвокатське об'єднання",
+                "Обслуговуючий житлово-будівельний кооператив",
+                "Сильське споживче товариство",
+                "Товарна біржа",
+                "Громадська організація",
+                "власність",
+                "Приватна",
+                "юридична особа",
+                "комунальна",
+                "Частна",
+                "приватна",
+                "споживчий кооператив",
+                "громадська організація",
+                "ОБСЛУГОВУЮЧИЙ КООПЕРАТИВ",
+                "Фермерське господарство",
+                "фермерське господарство",
+                "фермерське господарство ",
+                "ФЕРМЕРСЬКЕ ГОСПОДАРСТВО",
+                "ТОВАРИСТВО",
+                "товариство",
+                "Товариство",
+                "товариство з обмеженой відповідальністю",
+                "товариство з обмеженою відповідальтністю",
+                "товариство з обмеженою відповідальністю ",
+                "товарситво з обмеженою відповідальністю",
+                "товариство з обмеженою відповідальністю",
+                "Товариство з обмеженою відповідальністю",
+                "Товариство з обмеженою відповідальнісю",
+                "Товариство з обмеженою відповідальністю ",
+                "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ",
+                "Селянське фермерське господарство",
+                "селянське фермерське господарство",
+                "Товариство з додатковою відповідальністю",
+                "товариство з додатковою відповідальністю",
+                "приватне підприємство",
+                "АДВОКАТСЬКЕ ОБЄДНАННЯ",
+                "СІЛЬСЬКОГОСПОДАРСЬКИЙ ОБСЛУГОВУЮЧИЙ КООПЕРАТИВ",
+                "Благодійна організація",
+                "ТОВ",
+                "ТОВ ",
+                "МПП",
+                "ПП",
+                "ФГ",
+                "ТзОВ",
+                "ТДВ",
+                "СТОВ",
+                "ФОП",
+                "ПАТ",
+                "Приватне підприємство",
+                "Приватне підприємство ",
+                "Приватне Підприємство",
+                "ПРИВАТНЕ ПІДПРИЄМСТВО",
+                "ПРИВАТНИЙ ПІДПРИЄМЕЦЬ",
+                "Споживче товариство",
+                "політична партія",
+                "акціонерне товариство",
+                "Закрите акціонерне товариство",
+                "ЖИТЛОВО-БУДІВЕЛЬНИЙ КООПЕРАТИВ",
+                "приватна ",
+                "ІНШІ ОРГАНІЗАЦІЙНО-ПРАВОВІ ФОРМИ",
+                "ПСП ім.Шевченка",
+                "повне товариство",
+                "пай",
+                "Фізична особа-підприємець",
+                "Сільськогосподарський виробничий кооператив",
+                "інші організаційно-правові форми",
+                "компанія",
+                "Адвокатське бюро",
+                "колективна",
+                "Приватна організація, установа, заклад",
+                "Адвокатське об'єднання "
+              ],
+              "type": "string"
+            },
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "address_beneficial_owner": {
+          "title": "Address Beneficial Owner",
+          "description": "Example: 57401, Миколаївська область, смт. Березанка, вулиця Степова, буд.18",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "company_name_beneficial_owner": {
+          "title": "Company Name Beneficial Owner",
+          "description": "Example: МПП \"СКБ Салют\"",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "fax": {
+          "title": "Fax",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\+?\\d{6,13}$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "mail": {
+          "title": "Mail",
+          "description": "Може містити невалідні адреси, наприклад: \"V ictor@ukr.net\"",
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "email"
+            },
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "person_who_care": {
+          "title": "Person Who Care",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonWhoCare"
+          }
+        },
+        "phone": {
+          "title": "Phone",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\+?\\d{6,13}$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "ua_company_code_beneficial_owner": {
+          "title": "Ua Company Code Beneficial Owner",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d{8,10}$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "company_code_beneficial_owner": {
+          "title": "Company Code Beneficial Owner",
+          "pattern": "^(\\w{2,3})? ?\\d{4,10} ?$",
+          "type": "string"
+        },
+        "en_company_address_beneficial_owner": {
+          "title": "En Company Address Beneficial Owner",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "en_company_name_beneficial_owner": {
+          "title": "En Company Name Beneficial Owner",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "ua_company_address_beneficial_owner": {
+          "title": "Ua Company Address Beneficial Owner",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "ua_company_name_beneficial_owner": {
+          "title": "Ua Company Name Beneficial Owner",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "regNumber": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "iteration": {
+          "title": "Iteration",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        "country_beneficial_owner": {
+          "title": "Country Beneficial Owner",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "legalForm",
+        "fax",
+        "mail",
+        "phone",
+        "iteration",
+        "country_beneficial_owner"
+      ],
+      "additionalProperties": false
+    },
     "models__declaration__DataV2": {
       "title": "DataV2",
       "type": "object",
@@ -5309,7 +6543,14 @@
         },
         "step_11": {
           "title": "Step 11",
-          "type": "object"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IncomeAndGiftsStep"
+            },
+            {
+              "$ref": "#/definitions/IsNotApplicable"
+            }
+          ]
         },
         "step_12": {
           "title": "Step 12",
