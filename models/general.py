@@ -2,7 +2,8 @@ from datetime import datetime, date
 from uuid import UUID
 from enum import Enum, IntEnum
 from typing import Optional, Union, Literal, List, TypeVar
-from pydantic import BaseModel, Field, Extra, constr, conlist, conint, PositiveInt, PositiveFloat
+from pydantic import BaseModel, Field, Extra, constr, conlist, \
+    conint, PositiveInt, PositiveFloat, EmailStr
 
 
 class NACPBaseModel(BaseModel):

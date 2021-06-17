@@ -7,6 +7,8 @@ from models.steps.s04_unfinished_constructions import UnfinishedConstructionsSte
 from models.steps.s05_movable_property import ValuableMovablePropertyStep
 from models.steps.s06_vehicle import VehiclePropertyStep
 from models.steps.s07_securities import SecuritiesStep
+from models.steps.s08_corporate_rights import CorporateRightsStep
+from models.steps.s09_trusts_legal_entity import TrustsLegalEntityStep
 
 
 class IsNotApplicable(BaseModel):
@@ -94,16 +96,16 @@ class PostCategory(Enum):
 
 
 class DataV3(BaseModel):
-    step_0: TypeOfDeclarationStep
-    step_1: SubjectInfoStep
-    step_2: Union[FamilyMembersStep, conlist(dict, max_items=0, min_items=0)]
-    step_3: Union[RealEstateStep, IsNotApplicable]
-    step_4: Union[UnfinishedConstructionsStep, IsNotApplicable]
-    step_5: Union[ValuableMovablePropertyStep, IsNotApplicable]
-    step_6: Union[VehiclePropertyStep, IsNotApplicable]
-    step_7: Union[SecuritiesStep, IsNotApplicable]
-    step_8: dict
-    step_9: dict
+    # step_0: TypeOfDeclarationStep
+    # step_1: SubjectInfoStep
+    # step_2: Union[FamilyMembersStep, conlist(dict, max_items=0, min_items=0)]
+    # step_3: Union[RealEstateStep, IsNotApplicable]
+    # step_4: Union[UnfinishedConstructionsStep, IsNotApplicable]
+    # step_5: Union[ValuableMovablePropertyStep, IsNotApplicable]
+    # step_6: Union[VehiclePropertyStep, IsNotApplicable]
+    # step_7: Union[SecuritiesStep, IsNotApplicable]
+    step_8: Union[CorporateRightsStep, IsNotApplicable]
+    step_9: Union[TrustsLegalEntityStep, IsNotApplicable]
     step_10: dict
     step_11: dict
     step_12: dict
@@ -113,21 +115,21 @@ class DataV3(BaseModel):
     step_16: dict
     step_17: dict
 
-    class Config:
-        extra = Extra.forbid
+    # class Config:
+    #     extra = Extra.forbid
 
 
 class DataV2(BaseModel):
-    step_0: TypeOfDeclarationStep
-    step_1: SubjectInfoStep
-    step_2: Union[FamilyMembersStep, conlist(dict, max_items=0, min_items=0)]
-    step_3: Union[RealEstateStep, IsNotApplicable]
-    step_4: Union[UnfinishedConstructionsStep, IsNotApplicable]
-    step_5: Union[ValuableMovablePropertyStep, IsNotApplicable]
-    step_6: Union[VehiclePropertyStep, IsNotApplicable]
-    step_7: Union[SecuritiesStep, IsNotApplicable]
-    step_8: dict
-    step_9: dict
+    # step_0: TypeOfDeclarationStep
+    # step_1: SubjectInfoStep
+    # step_2: Union[FamilyMembersStep, conlist(dict, max_items=0, min_items=0)]
+    # step_3: Union[RealEstateStep, IsNotApplicable]
+    # step_4: Union[UnfinishedConstructionsStep, IsNotApplicable]
+    # step_5: Union[ValuableMovablePropertyStep, IsNotApplicable]
+    # step_6: Union[VehiclePropertyStep, IsNotApplicable]
+    # step_7: Union[SecuritiesStep, IsNotApplicable]
+    step_8: Union[CorporateRightsStep, IsNotApplicable]
+    step_9: Union[TrustsLegalEntityStep, IsNotApplicable]
     step_10: dict
     step_11: dict
     step_12: dict
@@ -136,8 +138,8 @@ class DataV2(BaseModel):
     step_15: dict
     step_16: dict
 
-    class Config:
-        extra = Extra.forbid
+    # class Config:
+    #     extra = Extra.forbid
 
 
 class Declaration(BaseModel):
