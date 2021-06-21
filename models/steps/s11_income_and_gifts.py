@@ -1,7 +1,6 @@
 from models.general import *
 from models.steps.s03_real_estate import Citizen, OwnershipType
 from models.steps.s04_unfinished_constructions import PersonWhoCare
-from models.steps.s08_corporate_rights import LegalForm
 
 
 IncomeType = Literal[
@@ -41,23 +40,21 @@ class RevenueSource(NACPBaseModel):
 
 class Right(NACPBaseModel):
     rights_id: Optional[PersonInfo]
-    # person: Optional[PersonInfo] = Field(description='V2 field')
     ownershipType: OwnershipType
     otherOwnership: Optional[Union[UsefulStr, Unknown]] = Field(description='Заповнено якщо ownershipType = "Інше"')
     rightBelongs: PersonInfo
-    percent_ownership: Optional[Union[constr(regex=r'^\d+([,.]\d+)?$'), Unknown]] = Field(
-        title='percent-ownership (%)', alias='percent-ownership',
-        description='Приклади: "33,58", "33.58", "11"',
-    )
+    percent_ownership: Optional[Union[BrokenFloat, Unknown]] = Field(alias='percent-ownership')
     citizen: Optional[Citizen]
 
-    ua_company_code: Optional[Union[constr(regex=r'^(\d{5,10})$'), Unknown]]
+    ua_company_code: Optional[Union[CompanyCode, Unknown]]
     ua_company_name: Optional[Union[UsefulStr, Unknown]]
 
     ua_firstname: Optional[Union[UsefulStr, Unknown]]
     ua_lastname: Optional[Union[UsefulStr, Unknown]]
     ua_middlename: Optional[Union[UsefulStr, Unknown]]
     ua_sameRegLivingAddress: Optional[YesNoStrNum]
+    ukr_fullname: Optional[UsefulStr]
+    eng_fullname: Optional[Union[UsefulStr, Unknown]]
 
     ua_birthday: ConfidentialInformation
     ua_livingAddressFull: ConfidentialInformation
@@ -65,10 +62,15 @@ class Right(NACPBaseModel):
     ua_taxNumber: ConfidentialInformation
 
     eng_company_address: Optional[Union[UsefulStr, Unknown]]
-    eng_company_code: Optional[Union[UsefulStr, Unknown]]
+    eng_company_code: Optional[Union[CompanyCode, Unknown]]
     eng_company_name: Optional[Union[UsefulStr, Unknown]]
-    ukr_company_address: Optional[UsefulStr]
+    ukr_company_address: Optional[Union[UsefulStr, Unknown]]
     ukr_company_name: Optional[UsefulStr]
+
+    eng_birthday: ConfidentialInformation
+    eng_regAddress: ConfidentialInformation
+    eng_taxNumber: ConfidentialInformation
+    ukr_actualAddress: ConfidentialInformation
 
     class Config:
         extra = Extra.forbid
@@ -89,16 +91,16 @@ class Data(NACPBaseModel):
     source_ua_firstname: Optional[Union[UsefulStr, Unknown]]
     source_ua_lastname: Optional[Union[UsefulStr, Unknown]]
     source_ua_middlename: Optional[Union[UsefulStr, Unknown]]
-    source_ukr_fullname: Optional[UsefulStr]
+    source_ukr_fullname: Optional[Union[UsefulStr, Unknown]]
     source_eng_fullname: Optional[UsefulStr]
     source_ua_sameRegLivingAddress: Optional[YesNoStrNum]
 
-    source_ua_company_code: Optional[Union[constr(regex=r'^\d{2,12}$'), Unknown]]
+    source_ua_company_code: Optional[Union[CompanyCode, Unknown]]
     source_ua_company_name: Optional[Union[UsefulStr, Unknown]]
     source_ukr_company_name: Optional[Union[UsefulStr, Unknown]]
     source_eng_company_address: Optional[Union[UsefulStr, Unknown]]
     source_ukr_company_address: Optional[Union[UsefulStr, Unknown]]
-    source_eng_company_code: Optional[Union[constr(regex=r'^(\w+)?\d{5,12}$'), Unknown]]
+    source_eng_company_code: Optional[Union[CompanyCode, Unknown]]
     source_eng_company_name: Optional[Union[UsefulStr, Unknown]]
 
     source_ua_actualAddress: ConfidentialInformation

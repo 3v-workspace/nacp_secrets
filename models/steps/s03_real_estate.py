@@ -44,11 +44,8 @@ class Right(NACPBaseModel):
     citizen: Optional[Citizen]
     ownershipType: OwnershipType
     otherOwnership: Optional[Union[UsefulStr, Unknown]] = Field(description='Заповнено якщо ownershipType = "Інше"')
-    percent_ownership: Optional[Union[constr(regex=r'^\d+([,.]\d+)?$'), Unknown]] = Field(
-        title='percent-ownership (%)', alias='percent-ownership',
-        description='Приклади: "33,58", "33.58", "11"',
-    )
-    rights_id: Optional[int]
+    percent_ownership: Optional[Union[BrokenFloat, Unknown]] = Field(alias='percent-ownership')
+    rights_id: Optional[constr(regex=r'^[a-f0-9]+$')]
     ua_buildType: Optional[BuildType]
     ua_city: Optional[Union[City, CityType]]
     rights_cityPath: Optional[City]
@@ -60,14 +57,14 @@ class Right(NACPBaseModel):
     eng_fullname: Optional[Union[UsefulStr, Unknown]]
     ukr_fullname: Optional[Union[UsefulStr, Unknown]]
 
-    ua_company_code: Optional[Union[constr(regex=r'^\d{8,10}$', max_length=10, min_length=8), Unknown]]
+    ua_company_code: Optional[Union[CompanyCode, Unknown]]
     ua_company_name: Optional[Union[UsefulStr, Unknown]]
 
     eng_company_address: Optional[UsefulStr]
-    eng_company_code: Optional[Union[UsefulStr, Unknown]]
-    eng_company_name: Optional[UsefulStr]
+    eng_company_code: Optional[Union[CompanyCode, Unknown]]
+    eng_company_name: Optional[Union[UsefulStr, Unknown]]
     ukr_company_address: Optional[UsefulStr]
-    ukr_company_name: Optional[UsefulStr]
+    ukr_company_name: Optional[Union[UsefulStr, Unknown]]
 
     ua_houseNum: ConfidentialInformation
     ua_postCode: ConfidentialInformation
@@ -97,9 +94,7 @@ class Data(NACPBaseModel):
     otherObjectType: Optional[UsefulStr] = Field(description='Заповнюється якщо objectType=Інше')
     ua_buildType: Optional[BuildType]
 
-    totalArea: Union[constr(regex=r'^\d+([,.]\d+)?$'), Unknown] = Field(
-        title='Загальна площа М2', description='Приклади: "109,8", "109.8", "1523"'
-    )
+    totalArea: Union[BrokenFloat, Unknown] = Field(title='Загальна площа М2')
     owningDate: Union[DateUK, Unknown] \
         = Field(title='Дата набуття права, DD.MM.YYYY')
     ua_cityType: Optional[CityType]

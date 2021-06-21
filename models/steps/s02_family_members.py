@@ -33,37 +33,38 @@ PEP_RELATIONSHIPS_TYPES_TO_EN = {
     'свекруха': 'mother-in-laws',
 }
 
-
-class SubjectRelation(str, Enum):
-    WIFE = 'дружина'
-    SON = 'син'
-    DAUGHTER = 'дочка'
-    HUSBAND = 'чоловік'
-    GRANDSON = 'онук'
-    MOTHER = 'мати'
-    MOTHER_IN_LAWS = 'свекруха'
-    FATHER_IN_LAWS = 'свекор'
-    FATHER = 'батько'
-    MOTHER_IN_LAW = 'теща'
-    brother = 'рідний брат'
-    grandmother = 'баба'
-    stepdaughter = 'падчерка'
-    stepson = 'пасинок'
-    sister = 'рідна сестра'
-    custody = 'особа, яка перебуває під піклуванням згаданого суб’єкта'
-    granddaughter = 'онучка'
-    stepfather = 'вітчим'
-    son_in_law = 'зять'
-    daughter_in_law = 'невістка'
-    other = "інший зв'язок"
-    father_in_law = 'тесть'
-    adopted = 'усиновлений'
-    great_granddaughter = 'правнучка'
-    grandfather = 'дід'
-    under_guardianship = 'особа, яка перебуває під опікою'
-    guardian = 'опікун'
-    great_grandmother = 'прабаба'
-    persons_who_live_together = 'особи, які спільно проживають, але не перебувають у шлюбі'
+SubjectRelation = Literal[
+    'дружина',
+    'син',
+    'дочка',
+    'чоловік',
+    'онук',
+    'мати',
+    'свекруха',
+    'свекор',
+    'батько',
+    'теща',
+    'рідний брат',
+    'баба',
+    'падчерка',
+    'пасинок',
+    'рідна сестра',
+    'особа, яка перебуває під піклуванням згаданого суб’єкта',
+    'онучка',
+    'вітчим',
+    'зять',
+    'невістка',
+    "інший зв'язок",
+    'тесть',
+    'усиновлений',
+    'правнучка',
+    'дід',
+    'особа, яка перебуває під опікою',
+    'опікун',
+    'прабаба',
+    'мачуха',
+    'особи, які спільно проживають, але не перебувають у шлюбі',
+]
 
 
 class Data(NACPBaseModel):
@@ -122,4 +123,3 @@ class FamilyMembersStep(NACPBaseModel):
     class Config:
         extra = Extra.forbid
         title = "Інформація про членів сім'ї суб'єкта декларування"
-

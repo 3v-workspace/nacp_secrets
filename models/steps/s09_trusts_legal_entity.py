@@ -15,8 +15,8 @@ class BaseData(NACPBaseModel):
         Field(description='Може містити невалідні адреси, наприклад: "V ictor@ukr.net"')
     person_who_care: Optional[List[PersonWhoCare]]
     phone: Union[constr(regex=r'^\+?\d{6,13}$'), Unknown]
-    ua_company_code_beneficial_owner: Optional[Union[constr(regex=r'^\d{8,10}$'), Unknown]]
-    company_code_beneficial_owner: Optional[constr(regex=r'^(\w{2,3})? ?\d{4,10} ?$')]
+    ua_company_code_beneficial_owner: Optional[Union[CompanyCode, Unknown]]
+    company_code_beneficial_owner: Optional[CompanyCode]
     en_company_address_beneficial_owner: Optional[UsefulStr]
     en_company_name_beneficial_owner: Optional[UsefulStr]
     ua_company_address_beneficial_owner: Optional[UsefulStr]
@@ -36,10 +36,10 @@ class DataV3(BaseData):
 class DataV2(BaseData):
     iteration: Optional[PositiveInt]
     address: Union[UsefulStr, Unknown]
-    beneficial_owner_company_code: Optional[Union[constr(regex=r'^(\w{1,2})?\d{6,12}$'), Unknown]]
-    country: PositiveInt
+    beneficial_owner_company_code: Optional[Union[CompanyCode, Unknown]]
+    country: Union[PositiveInt, Unknown]
     name: Union[UsefulStr, Unknown]
-    en_name: Union[UsefulStr, Unknown]
+    en_name: Optional[Union[UsefulStr, Unknown]]
 
 
 class TrustsLegalEntityStep(NACPBaseModel):

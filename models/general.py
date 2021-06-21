@@ -1,9 +1,56 @@
+import re
 from datetime import datetime, date
 from uuid import UUID
 from enum import Enum, IntEnum
 from typing import Optional, Union, Literal, List, TypeVar, Dict
 from pydantic import BaseModel, Field, Extra, constr, conlist, \
     conint, PositiveInt, PositiveFloat, EmailStr
+
+
+class BaseRegexType(str):
+    pattern = None
+    title = ''
+    description = ''
+    examples = []
+
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate
+
+    @classmethod
+    def validate(cls, value):
+        assert cls.pattern
+        if not isinstance(value, str):
+            raise TypeError('string required')
+        match = re.fullmatch(cls.pattern, value)
+        if not match:
+            raise ValueError(f'value not match regex "{cls.pattern}"')
+        return value
+
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        field_schema.update(
+            pattern=cls.pattern,
+        )
+
+        if cls.description:
+            if field_schema.get('description'):
+                field_schema['description'] += ' ' + cls.description
+            else:
+                field_schema['description'] = ' ' + cls.description
+
+        if cls.examples:
+            examples_str = ', '.join([f'"{x}"' for x in cls.examples])
+            if field_schema.get('description'):
+                field_schema['description'] += f'Examples: {examples_str}'
+            else:
+                field_schema['description'] = f'Examples: {examples_str}'
+            field_schema['examples'] = cls.examples
+        if not field_schema.get('title', False) and cls.title:
+            field_schema['title'] = cls.title
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}({super().__repr__()})'
 
 
 class NACPBaseModel(BaseModel):
@@ -71,7 +118,6 @@ class ConfidentialInformation(str, Enum):
 
 ConfidentialInformation = Optional[ConfidentialInformation]
 
-
 Unknown = Literal[
     '[Не застосовується]',
     '[Не відомо]',
@@ -79,17 +125,43 @@ Unknown = Literal[
     '',
 ]
 
-UsefulStr = constr(regex=r'^(?!\[)(.|\n)+(?<!\])$')
 
-City = Optional[Union[
-    constr(regex=r'^(\d+\.){2,8}\d+$'),
-    Unknown,
-]]
+class UsefulStr(BaseRegexType):
+    pattern = r'^(?!\[)(.|\n)+(?<!\])$'
+    title = 'Строка з корисним вмістом'
+    description = 'Такий тип не включає створи які починаються та закінчуються квадратними дужками.'
 
-CityType = Union[
-    constr(regex=r"^(\w|[ '.\-\(\)])+( ?/ ?(\w|[ '.\-\(\)])+?)*$"),
-    Unknown,
-]
+
+class City(BaseRegexType):
+    pattern = r'^(\d+\.){2,8}\d+$'
+    examples = ['1.2.80', '1.2.68.2.24.8.98.1.2']
+
+
+City = Optional[Union[City, Unknown]]
+
+
+class CityType(BaseRegexType):
+    pattern = r"^(\w|[ ,'.\-\(\)])+( ?/ ?(\w|[ ,'.\-])+?)*$"
+    examples = [
+        'Сільради, Підпордковані Макіївській Міськраді / Макіївка / Донецька область / Україна',
+    ]
+
+
+CityType = Union[CityType, Unknown]
+
+
+class CompanyCode(BaseRegexType):
+    pattern = r'^[0-9A-Za-z.\- ]{2,22}$'
+    title = 'Код компанії'
+    examples = [
+        '58', '456789', '00885623', '45674895213', '1245896325874125896',
+        '679-316-65-71', '289828', 'DMCC-096576', '000000000', 'CH-501.3.017.626-8'
+    ]
+
+
+class BrokenFloat(BaseRegexType):
+    pattern = r'^\d+[,.]?(\d+)?$'
+    examples = ["33,58", "33.58", "11", "35."]
 
 
 class ChangesData(BaseModel):
@@ -113,4 +185,6 @@ class PersonInfoEnum(Enum):
 PersonInfo = TypeVar('PersonInfo', PersonInfoEnum, conint(gt=1))
 
 
-DateUK = constr(regex=r'^\d{2}\.\d{2}\.\d{4}$')
+class DateUK(BaseRegexType):
+    pattern = r'^\d{2}\.\d{2}\.\d{4}$'
+    examples = ["25.05.2019"]

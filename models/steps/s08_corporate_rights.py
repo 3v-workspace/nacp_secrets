@@ -83,17 +83,14 @@ class Right(NACPBaseModel):
     ownershipType: OwnershipType
     otherOwnership: Optional[UsefulStr] = Field(description='Заповнено якщо ownershipType = "Інше"')
     rightBelongs: PersonInfo
-    percent_ownership: Optional[Union[constr(regex=r'^\d+([,.]\d+)?$'), Unknown]] = Field(
-        title='percent-ownership (%)', alias='percent-ownership',
-        description='Приклади: "33,58", "33.58", "11"',
-    )
+    percent_ownership: Optional[Union[BrokenFloat, Unknown]] = Field(alias='percent-ownership')
     citizen: Optional[Citizen]
 
-    ua_company_code: Optional[constr(regex=r'^(\d{8})$')]
-    ua_company_name: Optional[UsefulStr]
+    ua_company_code: Optional[Union[CompanyCode, Unknown]]
+    ua_company_name: Optional[Union[UsefulStr, Unknown]]
 
-    ua_firstname: Optional[UsefulStr]
-    ua_lastname: Optional[UsefulStr]
+    ua_firstname: Optional[Union[UsefulStr, Unknown]]
+    ua_lastname: Optional[Union[UsefulStr, Unknown]]
     ua_middlename: Optional[Union[UsefulStr, Unknown]]
 
     ua_sameRegLivingAddress: Optional[YesNoStrNum]
@@ -105,7 +102,13 @@ class Right(NACPBaseModel):
     ukr_company_address: Optional[Unknown]
     ukr_company_name: Optional[Unknown]
     ukr_fullname: Optional[UsefulStr]
+    ua_city: Optional[Unknown]
 
+    ua_street: ConfidentialInformation
+    ua_postCode: ConfidentialInformation
+    ua_housePartNum: ConfidentialInformation
+    ua_houseNum: ConfidentialInformation
+    ua_apartmentsNum: ConfidentialInformation
     eng_birthday: ConfidentialInformation
     eng_regAddress: ConfidentialInformation
     eng_taxNumber: ConfidentialInformation
@@ -126,14 +129,11 @@ class Data(NACPBaseModel):
     name: Union[UsefulStr, Unknown]
     en_name: Optional[Union[UsefulStr, Unknown]]
     legalForm: Union[LegalForm, UsefulStr, Unknown]
-    corporate_rights_company_code: Optional[Union[constr(regex=r'^(\d{6,19}|\d{3}-\d{3}-\d{2}-\d{2})$'), Unknown]] = \
-        Field(description='Examples: 456789, 00885623, 45674895213, 1245896325874125896, 679-316-65-71, 289828')
-    # cost: Union[constr(regex=r'^\d+([,.]\d+)?$'), Unknown]
-    cost: Union[constr(regex=r'^\d+([.,](\d+)?)?$'), Unknown] = \
+    corporate_rights_company_code: Optional[Union[CompanyCode, Unknown]]
+    cost: Union[BrokenFloat, Unknown] = \
         Field(description='Examples: "38.", "38.1", "38", "38,1"')
 
-    cost_percent: Union[constr(regex=r'^\d+([.,](\d+)?)?$'), Unknown] = \
-        Field(description='Examples: "38.", "38.1", "38", "38,1"')
+    cost_percent: Union[BrokenFloat, Unknown]
     is_transferred: Optional[Union[Literal['Передано', 'Не передано'], Unknown]]
     country: Union[PositiveInt, Unknown]
     owningDate: Optional[Union[DateUK, Unknown]]

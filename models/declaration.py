@@ -149,7 +149,7 @@ class Declaration(BaseModel):
     corruption_affected: CorruptionAffected
     data: DataV3
     declaration_type: DeclarationType
-    declaration_year: int = Field(ge=1800, le=2021, title='Рік декларації')
+    declaration_year: int = Field(ge=2015, le=2021, title='Рік декларації')
     post_category: PostCategory
     post_type: PostType
     responsible_position: int

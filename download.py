@@ -70,15 +70,13 @@ def download_custom(*, filename='declarations.json', user_declarant_id=None, dec
 
 
 if __name__ == '__main__':
-    download(declaration_type=1, declaration_year=2019, page=2)
-    download(declaration_type=1, declaration_year=2019, page=3)
-    download(declaration_type=1, declaration_year=2019, page=8)
-    download(declaration_type=1, declaration_year=2019, page=15)
-    download(declaration_type=1, declaration_year=2019, page=30)
-    download(declaration_type=1, declaration_year=2019, page=40)
-    download(declaration_type=1, declaration_year=2019, page=60)
-    download(declaration_type=1, declaration_year=2019, page=70)
-    download(declaration_type=1, declaration_year=2019, page=80)
-    download(declaration_type=1, declaration_year=2019, page=95)
-    download(declaration_type=1, declaration_year=2019, page=99)
+    years = {
+        2015: {1, 2, 3, 5, 15, 25, 35, 45, 55, 65, 75, 85, 95},
+        2016: {1, 2, 3, 5, 15, 25, 35, 45, 55, 65, 75, 85, 95},
+        2017: {1, 2, 3, 5, 15, 25, 35, 45, 55, 65, 75, 85, 95},
+        2018: {5, 15, 25, 35, 45, 55, 65, 75, 85, 95},
+    }
+    for year, pages in years.items():
+        for page in pages:
+            download(declaration_type=1, declaration_year=year, page=page)
     print('Done')

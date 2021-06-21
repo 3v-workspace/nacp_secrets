@@ -17,17 +17,14 @@ class Right(NACPBaseModel):
     ownershipType: OwnershipType
     otherOwnership: Optional[Union[UsefulStr, Unknown]]
     rightBelongs: PersonInfo
-    percent_ownership: Optional[Union[constr(regex=r'^\d+([,.]\d+)?$'), Unknown]] = Field(
-        title='percent-ownership (%)', alias='percent-ownership',
-        description='Приклади: "33,58", "33.58", "11"',
-    )
+    percent_ownership: Optional[Union[BrokenFloat, Unknown]] = Field(alias='percent-ownership')
     citizen: Optional[Citizen]
     ua_firstname: Optional[Union[UsefulStr, Unknown]]
     ua_lastname: Optional[Union[UsefulStr, Unknown]]
     ua_middlename: Optional[Union[UsefulStr, Unknown]]
     ua_sameRegLivingAddress: Optional[YesNoStrNum]
 
-    ua_company_code: Optional[Union[constr(regex=r'^\d{8}$', max_length=10, min_length=8), Unknown]]
+    ua_company_code: Optional[Union[CompanyCode, Unknown]]
     ua_company_name: Optional[UsefulStr]
 
     ua_birthday: ConfidentialInformation
@@ -52,7 +49,7 @@ class Data(NACPBaseModel):
     manufacturerName: Union[UsefulStr, Unknown] = Field(title='Найменування виробника')
     objectType: MovablePropertyType = Field(title='Вид майна, якщо Інше то дані в otherObjectType')
     otherObjectType: Optional[Union[UsefulStr, Literal['']]]
-    propertyDescr: UsefulStr = Field(title='Опис майна')
+    propertyDescr: Union[UsefulStr, Unknown] = Field(title='Опис майна')
     trademark: Union[UsefulStr, Unknown] = Field(title='Торгова марка')
 
     class Config:
