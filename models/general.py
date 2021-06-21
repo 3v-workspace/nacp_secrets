@@ -202,5 +202,6 @@ Currency = Literal[
     'CAD',
     'GEL',
     'CNY',
+    'HRK',
     'SEK',
 ]

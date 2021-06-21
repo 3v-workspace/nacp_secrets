@@ -99,7 +99,7 @@ def flatten_errors(obj, errors, loc=None):
                 )
                 flatten_errors(obj, error.exc.raw_errors, error_loc)
             else:
-                new_line = f"\n{' |----' * (indent + 1)}" if len(str(error.exc)) > 150 else ""
+                new_line = f"\n{' |----' * (indent + 1)}" if len(str(error.exc)) > 100 else ""
                 print(
                     ' |----' * indent,
                     f'{Fore.RED}{error.exc} '

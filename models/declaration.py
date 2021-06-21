@@ -12,6 +12,7 @@ from models.steps.s09_trusts_legal_entity import TrustsLegalEntityStep
 from models.steps.s10_intangible_assets import IntangibleAssetsStep
 from models.steps.s11_income_and_gifts import IncomeAndGiftsStep
 from models.steps.s12_cash_assets import CashAssetsStep
+from models.steps.s13_financial_liabilities import FinancialLiabilitiesStep
 from models.steps.s17_banks import BanksStep
 
 
@@ -113,7 +114,7 @@ class DataV3(BaseModel):
     step_10: Union[IntangibleAssetsStep, IsNotApplicable]
     step_11: Union[IncomeAndGiftsStep, IsNotApplicable]
     step_12: Union[CashAssetsStep, IsNotApplicable]
-    step_13: dict
+    step_13: Union[FinancialLiabilitiesStep, IsNotApplicable]
     step_14: dict
     step_15: dict
     step_16: dict
@@ -137,7 +138,7 @@ class DataV2(BaseModel):
     step_10: Union[IntangibleAssetsStep, IsNotApplicable]
     step_11: Union[IncomeAndGiftsStep, IsNotApplicable]
     step_12: Union[CashAssetsStep, IsNotApplicable]
-    step_13: dict
+    step_13: Union[FinancialLiabilitiesStep, IsNotApplicable]
     step_14: dict
     step_15: dict
     step_16: dict
