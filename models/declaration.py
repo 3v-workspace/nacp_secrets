@@ -13,6 +13,9 @@ from models.steps.s10_intangible_assets import IntangibleAssetsStep
 from models.steps.s11_income_and_gifts import IncomeAndGiftsStep
 from models.steps.s12_cash_assets import CashAssetsStep
 from models.steps.s13_financial_liabilities import FinancialLiabilitiesStep
+from models.steps.s14_expenses_and_transactions import ExpensesAndTransactionsStep
+from models.steps.s15_part_time_job import PartTimeJobStep
+from models.steps.s16_membership import MembershipStep
 from models.steps.s17_banks import BanksStep
 
 
@@ -115,13 +118,13 @@ class DataV3(BaseModel):
     step_11: Union[IncomeAndGiftsStep, IsNotApplicable]
     step_12: Union[CashAssetsStep, IsNotApplicable]
     step_13: Union[FinancialLiabilitiesStep, IsNotApplicable]
-    step_14: dict
-    step_15: dict
-    step_16: dict
+    step_14: Union[ExpensesAndTransactionsStep, IsNotApplicable]
+    step_15: Union[PartTimeJobStep, IsNotApplicable]
+    step_16: Union[MembershipStep, IsNotApplicable, conlist(dict, max_items=0, min_items=0)]
     step_17: Union[BanksStep, IsNotApplicable]
 
-    # class Config:
-    #     extra = Extra.forbid
+    class Config:
+        extra = Extra.forbid
 
 
 class DataV2(BaseModel):
@@ -139,12 +142,12 @@ class DataV2(BaseModel):
     step_11: Union[IncomeAndGiftsStep, IsNotApplicable]
     step_12: Union[CashAssetsStep, IsNotApplicable]
     step_13: Union[FinancialLiabilitiesStep, IsNotApplicable]
-    step_14: dict
-    step_15: dict
-    step_16: dict
+    step_14: Union[ExpensesAndTransactionsStep, IsNotApplicable]
+    step_15: Union[PartTimeJobStep, IsNotApplicable]
+    step_16: Union[MembershipStep, IsNotApplicable, conlist(dict, max_items=0, min_items=0)]
 
-    # class Config:
-    #     extra = Extra.forbid
+    class Config:
+        extra = Extra.forbid
 
 
 class Declaration(BaseModel):

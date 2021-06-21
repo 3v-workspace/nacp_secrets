@@ -5,6 +5,7 @@ from models.steps.s08_corporate_rights import LegalForm
 
 
 IntangibleAssetsType = Literal[
+    'Право на використання надр чи інших природних ресурсів',
     'Торгова марка чи комерційне найменування',
     'Криптовалюта',
     'Корисна модель',

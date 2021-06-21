@@ -152,4 +152,4 @@ class FinancialLiabilitiesStep(NACPBaseModel):
 
     class Config:
         extra = Extra.forbid
-        title = "Грошові активи"
+        title = "Фінансові зобов'язання"

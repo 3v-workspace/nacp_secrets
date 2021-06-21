@@ -5,7 +5,7 @@ from models.steps.s08_corporate_rights import LegalForm
 
 
 class Data(NACPBaseModel):
-    iteration: Optional[PositiveInt] = Field(description='Optional for V2')
+    iteration: Optional[Union[PositiveInt, Literal['org']]] = Field(description='Optional for V2')
 
     person_who_care: Optional[List[PersonWhoCare]]
 
@@ -20,14 +20,20 @@ class Data(NACPBaseModel):
 
     person_open_account: Union[PersonInfo, Unknown]
     person_open_account_type: Optional[Union[Citizen, Unknown]]
-    person_open_account_ua_company_code: Optional[Union[CompanyCode, Unknown]]
-    person_open_account_ua_company_name: Optional[UsefulStr]
     person_open_account_ua_firstname: Optional[UsefulStr]
     person_open_account_ua_lastname: Optional[UsefulStr]
     person_open_account_ua_middlename: Optional[UsefulStr]
     person_open_account_ukr_fullname: Optional[UsefulStr]
     person_open_account_eng_fullname: Optional[UsefulStr]
     person_open_account_ua_same_reg_actual_address: Optional[YesNoStrNum]
+
+    person_open_account_ua_company_name: Optional[UsefulStr]
+    person_open_account_ua_company_code: Optional[Union[CompanyCode, Unknown]]
+    person_open_account_ukr_company_name: Optional[UsefulStr]
+    person_open_account_ukr_company_address: Optional[UsefulStr]
+    person_open_account_eng_company_address: Optional[UsefulStr]
+    person_open_account_eng_company_code: Optional[CompanyCode]
+    person_open_account_eng_company_name: Optional[UsefulStr]
 
     bank_name: Union[UsefulStr, Unknown]
     establishment_type: Union[Citizen, Unknown]
