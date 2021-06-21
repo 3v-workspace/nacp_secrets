@@ -12,6 +12,8 @@ class BaseRegexType(str):
     title = ''
     description = ''
     examples = []
+    type = 'string'
+    format = ''
 
     @classmethod
     def __get_validators__(cls):
@@ -30,17 +32,21 @@ class BaseRegexType(str):
     @classmethod
     def __modify_schema__(cls, field_schema):
         field_schema.update(
+            type=cls.type,
             pattern=cls.pattern,
         )
+
+        if cls.format:
+            field_schema['format'] = cls.format
 
         if cls.description:
             if field_schema.get('description'):
                 field_schema['description'] += ' ' + cls.description
             else:
-                field_schema['description'] = ' ' + cls.description
+                field_schema['description'] = cls.description
 
         if cls.examples:
-            examples_str = ', '.join([f'"{x}"' for x in cls.examples])
+            examples_str = ', '.join([f'`{x}`' for x in cls.examples])
             if field_schema.get('description'):
                 field_schema['description'] += f'Examples: {examples_str}'
             else:
@@ -128,8 +134,9 @@ Unknown = Literal[
 
 class UsefulStr(BaseRegexType):
     pattern = r'^(?!\[)(.|\n)+(?<!\])$'
-    title = 'Строка з корисним вмістом'
-    description = 'Такий тип не включає створи які починаються та закінчуються квадратними дужками.'
+    type = 'useful string'
+    # title = 'Текст з корисним вмістом'
+    # description = 'Такий тип не включає текст який починається та закінчується квадратними дужками.'
 
 
 class City(BaseRegexType):
@@ -188,6 +195,7 @@ PersonInfo = TypeVar('PersonInfo', PersonInfoEnum, conint(gt=1))
 
 class DateUK(BaseRegexType):
     pattern = r'^\d{2}\.\d{2}\.\d{4}$'
+    format = 'date'
     examples = ["25.05.2019"]
 
 
