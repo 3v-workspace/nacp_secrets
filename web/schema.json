@@ -35,6 +35,8 @@
         },
         "declaration_year": {
           "title": "Рік декларації",
+          "minimum": 2015,
+          "maximum": 2021,
           "type": "integer"
         }
       },
@@ -58,8 +60,9 @@
         },
         "declarationYear1": {
           "title": "Рік декларації",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "minimum": 2015,
+          "maximum": 2021,
+          "type": "integer"
         }
       },
       "required": [
