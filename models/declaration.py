@@ -12,6 +12,7 @@ from models.steps.s09_trusts_legal_entity import TrustsLegalEntityStep
 from models.steps.s10_intangible_assets import IntangibleAssetsStep
 from models.steps.s11_income_and_gifts import IncomeAndGiftsStep
 from models.steps.s12_cash_assets import CashAssetsStep
+from models.steps.s17_banks import BanksStep
 
 
 class IsNotApplicable(BaseModel):
@@ -116,7 +117,7 @@ class DataV3(BaseModel):
     step_14: dict
     step_15: dict
     step_16: dict
-    step_17: dict
+    step_17: Union[BanksStep, IsNotApplicable]
 
     # class Config:
     #     extra = Extra.forbid
