@@ -144,6 +144,7 @@ class CityType(BaseRegexType):
     pattern = r"^(\w|[ ,'.\-\(\)])+( ?/ ?(\w|[ ,'.\-])+?)*$"
     examples = [
         'Сільради, Підпордковані Макіївській Міськраді / Макіївка / Донецька область / Україна',
+        'Кременець / Тернопільська Область/м.Тернопіль / Україна',
     ]
 
 
@@ -188,3 +189,18 @@ PersonInfo = TypeVar('PersonInfo', PersonInfoEnum, conint(gt=1))
 class DateUK(BaseRegexType):
     pattern = r'^\d{2}\.\d{2}\.\d{4}$'
     examples = ["25.05.2019"]
+
+
+Currency = Literal[
+    'UAH',
+    'USD',
+    'EUR',
+    'RUB',
+    'CHF',
+    'GBP',
+    'PLN',
+    'CAD',
+    'GEL',
+    'CNY',
+    'SEK',
+]
