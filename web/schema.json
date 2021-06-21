@@ -4867,7 +4867,15 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^\\+?\\d{6,13}$"
+              "pattern": "^\\+?\\d{6,15}$",
+              "description": "Examples: \"380312612019\", \"0619252545\", \"437401\", \"+3805673200969\", \"380626120399000\"",
+              "examples": [
+                "380312612019",
+                "0619252545",
+                "437401",
+                "+3805673200969",
+                "380626120399000"
+              ]
             },
             {
               "enum": [
@@ -4917,7 +4925,15 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^\\+?\\d{6,13}$"
+              "pattern": "^\\+?\\d{6,15}$",
+              "description": "Examples: \"380312612019\", \"0619252545\", \"437401\", \"+3805673200969\", \"380626120399000\"",
+              "examples": [
+                "380312612019",
+                "0619252545",
+                "437401",
+                "+3805673200969",
+                "380626120399000"
+              ]
             },
             {
               "enum": [
@@ -5279,7 +5295,15 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^\\+?\\d{6,13}$"
+              "pattern": "^\\+?\\d{6,15}$",
+              "description": "Examples: \"380312612019\", \"0619252545\", \"437401\", \"+3805673200969\", \"380626120399000\"",
+              "examples": [
+                "380312612019",
+                "0619252545",
+                "437401",
+                "+3805673200969",
+                "380626120399000"
+              ]
             },
             {
               "enum": [
@@ -5329,7 +5353,15 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^\\+?\\d{6,13}$"
+              "pattern": "^\\+?\\d{6,15}$",
+              "description": "Examples: \"380312612019\", \"0619252545\", \"437401\", \"+3805673200969\", \"380626120399000\"",
+              "examples": [
+                "380312612019",
+                "0619252545",
+                "437401",
+                "+3805673200969",
+                "380626120399000"
+              ]
             },
             {
               "enum": [
@@ -5787,6 +5819,7 @@
         "objectType": {
           "title": "Objecttype",
           "enum": [
+            "Право на використання надр чи інших природних ресурсів",
             "Торгова марка чи комерційне найменування",
             "Криптовалюта",
             "Корисна модель",
@@ -8528,7 +8561,7 @@
       "additionalProperties": false
     },
     "FinancialLiabilitiesStep": {
-      "title": "Грошові активи",
+      "title": "Фінансові зобов'язання",
       "type": "object",
       "properties": {
         "data": {
@@ -8544,6 +8577,509 @@
       ],
       "additionalProperties": false
     },
+    "models__steps__s14_expenses_and_transactions__Data": {
+      "title": "Data",
+      "type": "object",
+      "properties": {
+        "iteration": {
+          "title": "Iteration",
+          "description": "Для V2 може бути пустим",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        "type": {
+          "title": "Type",
+          "enum": [
+            1,
+            2
+          ],
+          "type": "integer"
+        },
+        "costAmount": {
+          "title": "Costamount",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        "country": {
+          "title": "Country",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        "date_costAmount": {
+          "title": "Date Costamount",
+          "pattern": "^\\d{2}\\.\\d{2}\\.\\d{4}$",
+          "description": "Examples: \"25.05.2019\"",
+          "examples": [
+            "25.05.2019"
+          ],
+          "type": "string"
+        },
+        "specExpenses": {
+          "title": "Specexpenses",
+          "enum": [
+            "Право власності (у тому числі спільної власності), володіння чи користування суб’єкта декларування припинено",
+            "Суб’єкт декларування набув право власності (у тому числі спільної власності), володіння чи користування",
+            "Виникло фінансове зобов’язання суб’єкта декларування",
+            "Оплата послуг",
+            "Придбання",
+            "Оренда",
+            "Інше"
+          ],
+          "type": "string"
+        },
+        "specOtherExpenses": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
+        },
+        "specExpensesSubject": {
+          "title": "Specexpensessubject",
+          "enum": [
+            "Нематеріальні активи",
+            "Нерухоме майно",
+            "Рухоме майно",
+            "Нематеріальні активи (зазначте, які саме)",
+            "Інше нерухоме майно (зазначте, яке саме)",
+            "Інше рухоме майно (зазначте, яке саме)",
+            "Інше рухоме майно",
+            "Інший (зазначте, який саме)",
+            "Інше"
+          ],
+          "type": "string"
+        },
+        "specOtherExpensesSubject": {
+          "title": "Строка з корисним вмістом",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "specExpensesRealtySubject": {
+          "title": "Строка з корисним вмістом",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "specExpensesOtherRealtySubject": {
+          "title": "Строка з корисним вмістом",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "date_specExpenses": {
+          "title": "Date Specexpenses",
+          "pattern": "^\\d{2}\\.\\d{2}\\.\\d{4}$",
+          "description": "Examples: \"25.05.2019\"",
+          "examples": [
+            "25.05.2019"
+          ],
+          "type": "string"
+        },
+        "specResultExpenses": {
+          "title": "Specresultexpenses",
+          "enum": [
+            "Суб’єкт декларування набув право власності (у тому числі спільної власності), володіння чи користування",
+            "Право власності (у тому числі спільної власності), володіння чи користування суб’єкта декларування припинено",
+            "Виникло фінансове зобов’язання суб’єкта декларування",
+            "Інше"
+          ],
+          "type": "string"
+        },
+        "specExpensesMovableSubject": {
+          "title": "Строка з корисним вмістом",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "specExpensesOtherMovableSubject": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
+        },
+        "specExpensesAssetsSubject": {
+          "title": "Строка з корисним вмістом",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "specExpensesSubject"
+      ],
+      "additionalProperties": false
+    },
+    "ExpensesAndTransactionsStep": {
+      "title": "Видатки та правочини суб'єкта декларування",
+      "type": "object",
+      "properties": {
+        "data": {
+          "title": "Data",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models__steps__s14_expenses_and_transactions__Data"
+          }
+        }
+      },
+      "required": [
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "models__steps__s15_part_time_job__Data": {
+      "title": "Data",
+      "type": "object",
+      "properties": {
+        "iteration": {
+          "title": "Iteration",
+          "description": "Для V2 може бути пустим",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        "paid": {
+          "title": "Paid",
+          "enum": [
+            "Оплачувана",
+            "Не оплачувана"
+          ],
+          "type": "string"
+        },
+        "description": {
+          "title": "Строка з корисним вмістом",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "type": "string"
+        },
+        "margin-emitent": {
+          "title": "Margin-Emitent",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PersonInfoEnum"
+            },
+            {
+              "type": "integer",
+              "exclusiveMinimum": 1
+            }
+          ]
+        },
+        "emitent_citizen": {
+          "title": "Emitent Citizen",
+          "enum": [
+            "Громадянин України",
+            "Юридична особа, зареєстрована в Україні",
+            "Іноземний громадянин",
+            "Юридична особа, зареєстрована за кордоном"
+          ],
+          "type": "string"
+        },
+        "emitent_ua_company_code": {
+          "title": "Emitent Ua Company Code",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
+              "description": "Examples: \"58\", \"456789\", \"00885623\", \"45674895213\", \"1245896325874125896\", \"679-316-65-71\", \"289828\", \"DMCC-096576\", \"000000000\", \"CH-501.3.017.626-8\"",
+              "examples": [
+                "58",
+                "456789",
+                "00885623",
+                "45674895213",
+                "1245896325874125896",
+                "679-316-65-71",
+                "289828",
+                "DMCC-096576",
+                "000000000",
+                "CH-501.3.017.626-8"
+              ],
+              "title": "Код компанії"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "emitent_ua_company_name": {
+          "title": "Emitent Ua Company Name",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+              "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+              "title": "Строка з корисним вмістом"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "emitent_eng_company_code": {
+          "title": "Emitent Eng Company Code",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
+              "description": "Examples: \"58\", \"456789\", \"00885623\", \"45674895213\", \"1245896325874125896\", \"679-316-65-71\", \"289828\", \"DMCC-096576\", \"000000000\", \"CH-501.3.017.626-8\"",
+              "examples": [
+                "58",
+                "456789",
+                "00885623",
+                "45674895213",
+                "1245896325874125896",
+                "679-316-65-71",
+                "289828",
+                "DMCC-096576",
+                "000000000",
+                "CH-501.3.017.626-8"
+              ],
+              "title": "Код компанії"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "emitent_eng_company_name": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
+        },
+        "emitent_ukr_company_name": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
+        },
+        "emitent_ukr_company_address": {
+          "title": "Emitent Ukr Company Address",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+              "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+              "title": "Строка з корисним вмістом"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "emitent_eng_company_address": {
+          "title": "Emitent Eng Company Address",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+              "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+              "title": "Строка з корисним вмістом"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "emitent_ua_firstname": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
+        },
+        "emitent_ua_lastname": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
+        },
+        "emitent_ua_middlename": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
+        },
+        "emitent_ua_sameRegLivingAddress": {
+          "$ref": "#/definitions/YesNoStrNum"
+        },
+        "emitent_ua_actualAddress": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "emitent_ua_birthday": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "emitent_ua_regAddress": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "emitent_ua_taxNumber": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        }
+      },
+      "required": [
+        "paid",
+        "description",
+        "margin-emitent"
+      ],
+      "additionalProperties": false
+    },
+    "PartTimeJobStep": {
+      "title": "Робота за сумісництвом суб’єкта декларування",
+      "type": "object",
+      "properties": {
+        "data": {
+          "title": "Data",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models__steps__s15_part_time_job__Data"
+          }
+        }
+      },
+      "required": [
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "Organization": {
+      "title": "Organization",
+      "type": "object",
+      "properties": {
+        "iteration": {
+          "title": "Iteration",
+          "description": "Для V2 може бути пустим",
+          "type": "integer"
+        },
+        "objectName": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
+        },
+        "objectType": {
+          "title": "Objecttype",
+          "enum": [
+            "Громадське об’єднання",
+            "Благодійна організація",
+            "Саморегулівне чи самоврядне професійне об’єднання"
+          ],
+          "type": "string"
+        },
+        "reestrCode": {
+          "title": "Reestrcode",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
+              "description": "Examples: \"58\", \"456789\", \"00885623\", \"45674895213\", \"1245896325874125896\", \"679-316-65-71\", \"289828\", \"DMCC-096576\", \"000000000\", \"CH-501.3.017.626-8\"",
+              "examples": [
+                "58",
+                "456789",
+                "00885623",
+                "45674895213",
+                "1245896325874125896",
+                "679-316-65-71",
+                "289828",
+                "DMCC-096576",
+                "000000000",
+                "CH-501.3.017.626-8"
+              ],
+              "title": "Код компанії"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "unitType": {
+          "title": "Unittype",
+          "enum": [
+            "Наглядові органи",
+            "Керівні органи",
+            "Ревізійні органи"
+          ],
+          "type": "string"
+        },
+        "unitName": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "objectName",
+        "objectType",
+        "reestrCode"
+      ],
+      "additionalProperties": false
+    },
+    "models__steps__s16_membership__Data": {
+      "title": "Data",
+      "type": "object",
+      "properties": {
+        "org": {
+          "title": "Org",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Organization"
+          }
+        },
+        "part_org": {
+          "title": "Part Org",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Organization"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "MembershipStep": {
+      "title": "Членство суб’єкта декларування в організаціях та їх органах",
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/models__steps__s16_membership__Data"
+        }
+      },
+      "required": [
+        "data"
+      ],
+      "additionalProperties": false
+    },
     "models__steps__s17_banks__Data": {
       "title": "Data",
       "type": "object",
@@ -8551,8 +9087,18 @@
         "iteration": {
           "title": "Iteration",
           "description": "Optional for V2",
-          "exclusiveMinimum": 0,
-          "type": "integer"
+          "anyOf": [
+            {
+              "type": "integer",
+              "exclusiveMinimum": 0
+            },
+            {
+              "enum": [
+                "org"
+              ],
+              "type": "string"
+            }
+          ]
         },
         "person_who_care": {
           "title": "Person Who Care",
@@ -8716,44 +9262,6 @@
             }
           ]
         },
-        "person_open_account_ua_company_code": {
-          "title": "Person Open Account Ua Company Code",
-          "anyOf": [
-            {
-              "type": "string",
-              "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
-              "description": "Examples: \"58\", \"456789\", \"00885623\", \"45674895213\", \"1245896325874125896\", \"679-316-65-71\", \"289828\", \"DMCC-096576\", \"000000000\", \"CH-501.3.017.626-8\"",
-              "examples": [
-                "58",
-                "456789",
-                "00885623",
-                "45674895213",
-                "1245896325874125896",
-                "679-316-65-71",
-                "289828",
-                "DMCC-096576",
-                "000000000",
-                "CH-501.3.017.626-8"
-              ],
-              "title": "Код компанії"
-            },
-            {
-              "enum": [
-                "[Не застосовується]",
-                "[Не відомо]",
-                "[Член сім'ї не надав інформацію]",
-                ""
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "person_open_account_ua_company_name": {
-          "title": "Строка з корисним вмістом",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
-          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
-          "type": "string"
-        },
         "person_open_account_ua_firstname": {
           "title": "Строка з корисним вмістом",
           "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
@@ -8786,6 +9294,86 @@
         },
         "person_open_account_ua_same_reg_actual_address": {
           "$ref": "#/definitions/YesNoStrNum"
+        },
+        "person_open_account_ua_company_name": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
+        },
+        "person_open_account_ua_company_code": {
+          "title": "Person Open Account Ua Company Code",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
+              "description": "Examples: \"58\", \"456789\", \"00885623\", \"45674895213\", \"1245896325874125896\", \"679-316-65-71\", \"289828\", \"DMCC-096576\", \"000000000\", \"CH-501.3.017.626-8\"",
+              "examples": [
+                "58",
+                "456789",
+                "00885623",
+                "45674895213",
+                "1245896325874125896",
+                "679-316-65-71",
+                "289828",
+                "DMCC-096576",
+                "000000000",
+                "CH-501.3.017.626-8"
+              ],
+              "title": "Код компанії"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "person_open_account_ukr_company_name": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
+        },
+        "person_open_account_ukr_company_address": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
+        },
+        "person_open_account_eng_company_address": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
+        },
+        "person_open_account_eng_company_code": {
+          "title": "Код компанії",
+          "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
+          "description": "Examples: \"58\", \"456789\", \"00885623\", \"45674895213\", \"1245896325874125896\", \"679-316-65-71\", \"289828\", \"DMCC-096576\", \"000000000\", \"CH-501.3.017.626-8\"",
+          "examples": [
+            "58",
+            "456789",
+            "00885623",
+            "45674895213",
+            "1245896325874125896",
+            "679-316-65-71",
+            "289828",
+            "DMCC-096576",
+            "000000000",
+            "CH-501.3.017.626-8"
+          ],
+          "type": "string"
+        },
+        "person_open_account_eng_company_name": {
+          "title": "Строка з корисним вмістом",
+          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$",
+          "description": " Такий тип не включає створи які починаються та закінчуються квадратними дужками.",
+          "type": "string"
         },
         "bank_name": {
           "title": "Bank Name",
@@ -9174,15 +9762,44 @@
         },
         "step_14": {
           "title": "Step 14",
-          "type": "object"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ExpensesAndTransactionsStep"
+            },
+            {
+              "$ref": "#/definitions/IsNotApplicable"
+            }
+          ]
         },
         "step_15": {
           "title": "Step 15",
-          "type": "object"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PartTimeJobStep"
+            },
+            {
+              "$ref": "#/definitions/IsNotApplicable"
+            }
+          ]
         },
         "step_16": {
           "title": "Step 16",
-          "type": "object"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/MembershipStep"
+            },
+            {
+              "$ref": "#/definitions/IsNotApplicable"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "object"
+              },
+              "minItems": 0,
+              "maxItems": 0
+            }
+          ]
         },
         "step_17": {
           "title": "Step 17",
@@ -9215,7 +9832,8 @@
         "step_15",
         "step_16",
         "step_17"
-      ]
+      ],
+      "additionalProperties": false
     },
     "models__declaration__PostCategory": {
       "title": "PostCategory",
@@ -9399,7 +10017,15 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^\\+?\\d{6,13}$"
+              "pattern": "^\\+?\\d{6,15}$",
+              "description": "Examples: \"380312612019\", \"0619252545\", \"437401\", \"+3805673200969\", \"380626120399000\"",
+              "examples": [
+                "380312612019",
+                "0619252545",
+                "437401",
+                "+3805673200969",
+                "380626120399000"
+              ]
             },
             {
               "enum": [
@@ -9449,7 +10075,15 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^\\+?\\d{6,13}$"
+              "pattern": "^\\+?\\d{6,15}$",
+              "description": "Examples: \"380312612019\", \"0619252545\", \"437401\", \"+3805673200969\", \"380626120399000\"",
+              "examples": [
+                "380312612019",
+                "0619252545",
+                "437401",
+                "+3805673200969",
+                "380626120399000"
+              ]
             },
             {
               "enum": [
@@ -9811,7 +10445,15 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^\\+?\\d{6,13}$"
+              "pattern": "^\\+?\\d{6,15}$",
+              "description": "Examples: \"380312612019\", \"0619252545\", \"437401\", \"+3805673200969\", \"380626120399000\"",
+              "examples": [
+                "380312612019",
+                "0619252545",
+                "437401",
+                "+3805673200969",
+                "380626120399000"
+              ]
             },
             {
               "enum": [
@@ -9861,7 +10503,15 @@
           "anyOf": [
             {
               "type": "string",
-              "pattern": "^\\+?\\d{6,13}$"
+              "pattern": "^\\+?\\d{6,15}$",
+              "description": "Examples: \"380312612019\", \"0619252545\", \"437401\", \"+3805673200969\", \"380626120399000\"",
+              "examples": [
+                "380312612019",
+                "0619252545",
+                "437401",
+                "+3805673200969",
+                "380626120399000"
+              ]
             },
             {
               "enum": [
@@ -10121,15 +10771,44 @@
         },
         "step_14": {
           "title": "Step 14",
-          "type": "object"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ExpensesAndTransactionsStep"
+            },
+            {
+              "$ref": "#/definitions/IsNotApplicable"
+            }
+          ]
         },
         "step_15": {
           "title": "Step 15",
-          "type": "object"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PartTimeJobStep"
+            },
+            {
+              "$ref": "#/definitions/IsNotApplicable"
+            }
+          ]
         },
         "step_16": {
           "title": "Step 16",
-          "type": "object"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/MembershipStep"
+            },
+            {
+              "$ref": "#/definitions/IsNotApplicable"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "object"
+              },
+              "minItems": 0,
+              "maxItems": 0
+            }
+          ]
         }
       },
       "required": [
@@ -10150,7 +10829,8 @@
         "step_14",
         "step_15",
         "step_16"
-      ]
+      ],
+      "additionalProperties": false
     }
   },
   "paths": {
