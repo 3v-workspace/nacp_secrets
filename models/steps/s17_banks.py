@@ -65,7 +65,7 @@ class Data(NACPBaseModel):
 
 
 class BanksStep(NACPBaseModel):
-    data: Union[List[Union[Data, Dict[PositiveInt, Organization]]]]
+    data: List[Union[Data, Dict[PositiveInt, Organization]]]
 
     class Config:
         extra = Extra.forbid
