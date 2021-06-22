@@ -40,6 +40,10 @@ def download(declaration_type, declaration_year, page=1):
     os.makedirs(dir_name, exist_ok=True)
     filename = f'{dir_name}/t{declaration_type}_{declaration_year}_p{page}.json'
 
+    if os.path.exists(filename):
+        print(f'File already exists - "{filename}"')
+        return
+
     resp = requests.get(NACP_LIST, params={
         'declaration_type': declaration_type,
         'declaration_year': declaration_year,
@@ -71,8 +75,12 @@ def download_custom(*, filename='declarations.json', user_declarant_id=None, dec
 
 if __name__ == '__main__':
     years = {
-        2019: {25, 35, 45, 55, 65, 75, 85},
-        2020: {5, 25, 35, 45, 55, 65, 75, 85, 95},
+        2015: range(1, 100, 7),
+        2016: range(1, 100, 7),
+        2017: range(1, 100, 7),
+        2018: range(1, 100, 7),
+        2019: range(1, 100, 7),
+        2020: range(1, 100, 7),
     }
     for year, pages in years.items():
         for page in pages:
