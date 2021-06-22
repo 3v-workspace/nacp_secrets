@@ -53,7 +53,7 @@ class Right(NACPBaseModel):
     ua_lastname: Optional[Union[UsefulStr, Unknown]]
     ua_middlename: Optional[Union[UsefulStr, Unknown]]
     ua_sameRegLivingAddress: Optional[YesNoStrNum]
-    ukr_fullname: Optional[UsefulStr]
+    ukr_fullname: Optional[Union[UsefulStr, Unknown]]
     eng_fullname: Optional[Union[UsefulStr, Unknown]]
 
     ua_birthday: ConfidentialInformation
@@ -92,7 +92,7 @@ class Data(NACPBaseModel):
     source_ua_lastname: Optional[Union[UsefulStr, Unknown]]
     source_ua_middlename: Optional[Union[UsefulStr, Unknown]]
     source_ukr_fullname: Optional[Union[UsefulStr, Unknown]]
-    source_eng_fullname: Optional[UsefulStr]
+    source_eng_fullname: Optional[Union[UsefulStr, Unknown]]
     source_ua_sameRegLivingAddress: Optional[YesNoStrNum]
 
     source_ua_company_code: Optional[Union[CompanyCode, Unknown]]

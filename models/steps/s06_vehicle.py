@@ -8,6 +8,7 @@ VehiclePropertyType = Literal[
     'Сільськогосподарська техніка',
     'Автомобіль легковий',
     'Мотоцикл (мопед)',
+    'Повітряний засіб',
     'Інше',
 ]
 
@@ -23,7 +24,7 @@ class Right(NACPBaseModel):
     ua_lastname: Optional[Union[UsefulStr, Unknown]]
     ua_middlename: Optional[Union[UsefulStr, Unknown]]
     eng_fullname: Optional[Union[UsefulStr, Unknown]]
-    ukr_fullname: Optional[UsefulStr]
+    ukr_fullname: Optional[Union[UsefulStr, Unknown]]
     ua_sameRegLivingAddress: Optional[YesNoStrNum]
 
     ua_company_code: Optional[Union[CompanyCode, Unknown]]

@@ -32,12 +32,18 @@ class Data(NACPBaseModel):
     emitent_ua_firstname: Optional[UsefulStr]
     emitent_ua_lastname: Optional[UsefulStr]
     emitent_ua_middlename: Optional[UsefulStr]
+    emitent_eng_fullname: Optional[Union[UsefulStr, Unknown]]
+    emitent_ukr_fullname: Optional[Union[UsefulStr, Unknown]]
     emitent_ua_sameRegLivingAddress: Optional[YesNoStrNum]
 
     emitent_ua_actualAddress: ConfidentialInformation
     emitent_ua_birthday: ConfidentialInformation
     emitent_ua_regAddress: ConfidentialInformation
     emitent_ua_taxNumber: ConfidentialInformation
+    emitent_eng_birthday: ConfidentialInformation
+    emitent_eng_regAddress: ConfidentialInformation
+    emitent_eng_taxNumber: ConfidentialInformation
+    emitent_ukr_regAddress: ConfidentialInformation
 
 
     class Config:

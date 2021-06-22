@@ -212,4 +212,9 @@ Currency = Literal[
     'CNY',
     'HRK',
     'SEK',
+    'AUD',
+    'TRY',
+    'JPY',
+    'HUF',
+    'CZK',
 ]

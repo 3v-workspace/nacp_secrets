@@ -738,7 +738,6 @@
             "вітчим",
             "зять",
             "невістка",
-            "інший зв'язок",
             "тесть",
             "усиновлений",
             "правнучка",
@@ -746,8 +745,10 @@
             "особа, яка перебуває під опікою",
             "опікун",
             "прабаба",
+            "піклувальник",
             "мачуха",
-            "особи, які спільно проживають, але не перебувають у шлюбі"
+            "особи, які спільно проживають, але не перебувають у шлюбі",
+            "інший зв'язок"
           ],
           "type": "string"
         }
@@ -2655,6 +2656,9 @@
             },
             {
               "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
                 ""
               ],
               "type": "string"
@@ -2896,8 +2900,21 @@
         },
         "ukr_fullname": {
           "title": "Ukr Fullname",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "ua_sameRegLivingAddress": {
           "$ref": "#/definitions/YesNoStrNum"
@@ -3116,6 +3133,7 @@
             "Сільськогосподарська техніка",
             "Автомобіль легковий",
             "Мотоцикл (мопед)",
+            "Повітряний засіб",
             "Інше"
           ],
           "type": "string"
@@ -3506,13 +3524,35 @@
         },
         "persons_eng_company_code": {
           "title": "Persons Eng Company Code",
-          "enum": [
-            "[Не застосовується]",
-            "[Не відомо]",
-            "[Член сім'ї не надав інформацію]",
-            ""
-          ],
-          "type": "string"
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
+              "description": "Examples: `58`, `456789`, `00885623`, `45674895213`, `1245896325874125896`, `679-316-65-71`, `289828`, `DMCC-096576`, `000000000`, `CH-501.3.017.626-8`",
+              "examples": [
+                "58",
+                "456789",
+                "00885623",
+                "45674895213",
+                "1245896325874125896",
+                "679-316-65-71",
+                "289828",
+                "DMCC-096576",
+                "000000000",
+                "CH-501.3.017.626-8"
+              ],
+              "title": "Код компанії"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "persons_eng_company_name": {
           "title": "Persons Eng Company Name",
@@ -3888,6 +3928,9 @@
           "$ref": "#/definitions/ConfidentialInformation"
         },
         "persons_ua_taxNumber": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "persons_ua_actual_address": {
           "$ref": "#/definitions/ConfidentialInformation"
         }
       },
@@ -4822,42 +4865,108 @@
           ]
         },
         "company_code_beneficial_owner": {
-          "title": "Код компанії",
-          "type": "string",
-          "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
-          "description": "Examples: `58`, `456789`, `00885623`, `45674895213`, `1245896325874125896`, `679-316-65-71`, `289828`, `DMCC-096576`, `000000000`, `CH-501.3.017.626-8`",
-          "examples": [
-            "58",
-            "456789",
-            "00885623",
-            "45674895213",
-            "1245896325874125896",
-            "679-316-65-71",
-            "289828",
-            "DMCC-096576",
-            "000000000",
-            "CH-501.3.017.626-8"
+          "title": "Company Code Beneficial Owner",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
+              "description": "Examples: `58`, `456789`, `00885623`, `45674895213`, `1245896325874125896`, `679-316-65-71`, `289828`, `DMCC-096576`, `000000000`, `CH-501.3.017.626-8`",
+              "examples": [
+                "58",
+                "456789",
+                "00885623",
+                "45674895213",
+                "1245896325874125896",
+                "679-316-65-71",
+                "289828",
+                "DMCC-096576",
+                "000000000",
+                "CH-501.3.017.626-8"
+              ],
+              "title": "Код компанії"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
           ]
         },
         "en_company_address_beneficial_owner": {
           "title": "En Company Address Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "en_company_name_beneficial_owner": {
           "title": "En Company Name Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "ua_company_address_beneficial_owner": {
           "title": "Ua Company Address Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "ua_company_name_beneficial_owner": {
           "title": "Ua Company Name Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "regNumber": {
           "$ref": "#/definitions/ConfidentialInformation"
@@ -4955,6 +5064,24 @@
         },
         "en_name": {
           "title": "En Name",
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "en_address": {
+          "title": "En Address",
           "anyOf": [
             {
               "type": "useful string",
@@ -5234,42 +5361,108 @@
           ]
         },
         "company_code_beneficial_owner": {
-          "title": "Код компанії",
-          "type": "string",
-          "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
-          "description": "Examples: `58`, `456789`, `00885623`, `45674895213`, `1245896325874125896`, `679-316-65-71`, `289828`, `DMCC-096576`, `000000000`, `CH-501.3.017.626-8`",
-          "examples": [
-            "58",
-            "456789",
-            "00885623",
-            "45674895213",
-            "1245896325874125896",
-            "679-316-65-71",
-            "289828",
-            "DMCC-096576",
-            "000000000",
-            "CH-501.3.017.626-8"
+          "title": "Company Code Beneficial Owner",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
+              "description": "Examples: `58`, `456789`, `00885623`, `45674895213`, `1245896325874125896`, `679-316-65-71`, `289828`, `DMCC-096576`, `000000000`, `CH-501.3.017.626-8`",
+              "examples": [
+                "58",
+                "456789",
+                "00885623",
+                "45674895213",
+                "1245896325874125896",
+                "679-316-65-71",
+                "289828",
+                "DMCC-096576",
+                "000000000",
+                "CH-501.3.017.626-8"
+              ],
+              "title": "Код компанії"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
           ]
         },
         "en_company_address_beneficial_owner": {
           "title": "En Company Address Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "en_company_name_beneficial_owner": {
           "title": "En Company Name Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "ua_company_address_beneficial_owner": {
           "title": "Ua Company Address Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "ua_company_name_beneficial_owner": {
           "title": "Ua Company Name Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "regNumber": {
           "$ref": "#/definitions/ConfidentialInformation"
@@ -5919,8 +6112,21 @@
         },
         "ukr_fullname": {
           "title": "Ukr Fullname",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "eng_fullname": {
           "title": "Eng Fullname",
@@ -6354,8 +6560,21 @@
         },
         "source_eng_fullname": {
           "title": "Source Eng Fullname",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "source_ua_sameRegLivingAddress": {
           "$ref": "#/definitions/YesNoStrNum"
@@ -6786,6 +7005,42 @@
             }
           ]
         },
+        "ukr_fullname": {
+          "title": "Ukr Fullname",
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "eng_fullname": {
+          "title": "Eng Fullname",
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
         "ua_buildType": {
           "title": "Ua Buildtype",
           "anyOf": [
@@ -6832,33 +7087,6 @@
         },
         "ua_sameRegLivingAddress": {
           "$ref": "#/definitions/YesNoStrNum"
-        },
-        "ua_birthday": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "ua_postCode": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "ua_houseNum": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "ua_housePartNum": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "ua_street": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "ua_streetType": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "ua_livingAddressFull": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "ua_regAddressFull": {
-          "$ref": "#/definitions/ConfidentialInformation"
-        },
-        "ua_taxNumber": {
-          "$ref": "#/definitions/ConfidentialInformation"
         },
         "eng_company_address": {
           "title": "Eng Company Address",
@@ -6950,6 +7178,48 @@
           "title": "Ukr Company Name",
           "type": "useful string",
           "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+        },
+        "ua_birthday": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_postCode": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_houseNum": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_housePartNum": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_street": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_streetType": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_livingAddressFull": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_regAddressFull": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_taxNumber": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ua_apartmentsNum": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "eng_birthday": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "eng_regAddress": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "eng_taxNumber": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "ukr_actualAddress": {
+          "$ref": "#/definitions/ConfidentialInformation"
         }
       },
       "required": [
@@ -7034,7 +7304,12 @@
                 "GEL",
                 "CNY",
                 "HRK",
-                "SEK"
+                "SEK",
+                "AUD",
+                "TRY",
+                "JPY",
+                "HUF",
+                "CZK"
               ],
               "type": "string"
             },
@@ -8022,7 +8297,12 @@
                 "GEL",
                 "CNY",
                 "HRK",
-                "SEK"
+                "SEK",
+                "AUD",
+                "TRY",
+                "JPY",
+                "HUF",
+                "CZK"
               ],
               "type": "string"
             },
@@ -8296,6 +8576,7 @@
         },
         "type": {
           "title": "Type",
+          "description": "Для V2 може бути пустим",
           "enum": [
             1,
             2
@@ -8330,6 +8611,7 @@
             "Виникло фінансове зобов’язання суб’єкта декларування",
             "Оплата послуг",
             "Придбання",
+            "Страхові виплати",
             "Оренда",
             "Інше"
           ],
@@ -8412,7 +8694,6 @@
         }
       },
       "required": [
-        "type",
         "specExpensesSubject"
       ],
       "additionalProperties": false
@@ -8623,6 +8904,42 @@
           "type": "useful string",
           "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
         },
+        "emitent_eng_fullname": {
+          "title": "Emitent Eng Fullname",
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "emitent_ukr_fullname": {
+          "title": "Emitent Ukr Fullname",
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
         "emitent_ua_sameRegLivingAddress": {
           "$ref": "#/definitions/YesNoStrNum"
         },
@@ -8636,6 +8953,18 @@
           "$ref": "#/definitions/ConfidentialInformation"
         },
         "emitent_ua_taxNumber": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "emitent_eng_birthday": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "emitent_eng_regAddress": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "emitent_eng_taxNumber": {
+          "$ref": "#/definitions/ConfidentialInformation"
+        },
+        "emitent_ukr_regAddress": {
           "$ref": "#/definitions/ConfidentialInformation"
         }
       },
@@ -8788,7 +9117,8 @@
             },
             {
               "enum": [
-                "org"
+                "org",
+                "part_org"
               ],
               "type": "string"
             }
@@ -9260,12 +9590,6 @@
           "$ref": "#/definitions/ConfidentialInformation"
         }
       },
-      "required": [
-        "person_has_account",
-        "person_open_account",
-        "bank_name",
-        "establishment_type"
-      ],
       "additionalProperties": false
     },
     "BanksStep": {
@@ -9276,7 +9600,17 @@
           "title": "Data",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/models__steps__s17_banks__Data"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/models__steps__s17_banks__Data"
+              },
+              {
+                "type": "object",
+                "additionalProperties": {
+                  "$ref": "#/definitions/Organization"
+                }
+              }
+            ]
           }
         }
       },
@@ -9795,42 +10129,108 @@
           ]
         },
         "company_code_beneficial_owner": {
-          "title": "Код компанії",
-          "type": "string",
-          "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
-          "description": "Examples: `58`, `456789`, `00885623`, `45674895213`, `1245896325874125896`, `679-316-65-71`, `289828`, `DMCC-096576`, `000000000`, `CH-501.3.017.626-8`",
-          "examples": [
-            "58",
-            "456789",
-            "00885623",
-            "45674895213",
-            "1245896325874125896",
-            "679-316-65-71",
-            "289828",
-            "DMCC-096576",
-            "000000000",
-            "CH-501.3.017.626-8"
+          "title": "Company Code Beneficial Owner",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
+              "description": "Examples: `58`, `456789`, `00885623`, `45674895213`, `1245896325874125896`, `679-316-65-71`, `289828`, `DMCC-096576`, `000000000`, `CH-501.3.017.626-8`",
+              "examples": [
+                "58",
+                "456789",
+                "00885623",
+                "45674895213",
+                "1245896325874125896",
+                "679-316-65-71",
+                "289828",
+                "DMCC-096576",
+                "000000000",
+                "CH-501.3.017.626-8"
+              ],
+              "title": "Код компанії"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
           ]
         },
         "en_company_address_beneficial_owner": {
           "title": "En Company Address Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "en_company_name_beneficial_owner": {
           "title": "En Company Name Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "ua_company_address_beneficial_owner": {
           "title": "Ua Company Address Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "ua_company_name_beneficial_owner": {
           "title": "Ua Company Name Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "regNumber": {
           "$ref": "#/definitions/ConfidentialInformation"
@@ -9928,6 +10328,24 @@
         },
         "en_name": {
           "title": "En Name",
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
+        },
+        "en_address": {
+          "title": "En Address",
           "anyOf": [
             {
               "type": "useful string",
@@ -10207,42 +10625,108 @@
           ]
         },
         "company_code_beneficial_owner": {
-          "title": "Код компанії",
-          "type": "string",
-          "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
-          "description": "Examples: `58`, `456789`, `00885623`, `45674895213`, `1245896325874125896`, `679-316-65-71`, `289828`, `DMCC-096576`, `000000000`, `CH-501.3.017.626-8`",
-          "examples": [
-            "58",
-            "456789",
-            "00885623",
-            "45674895213",
-            "1245896325874125896",
-            "679-316-65-71",
-            "289828",
-            "DMCC-096576",
-            "000000000",
-            "CH-501.3.017.626-8"
+          "title": "Company Code Beneficial Owner",
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9A-Za-z.\\- ]{2,22}$",
+              "description": "Examples: `58`, `456789`, `00885623`, `45674895213`, `1245896325874125896`, `679-316-65-71`, `289828`, `DMCC-096576`, `000000000`, `CH-501.3.017.626-8`",
+              "examples": [
+                "58",
+                "456789",
+                "00885623",
+                "45674895213",
+                "1245896325874125896",
+                "679-316-65-71",
+                "289828",
+                "DMCC-096576",
+                "000000000",
+                "CH-501.3.017.626-8"
+              ],
+              "title": "Код компанії"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
           ]
         },
         "en_company_address_beneficial_owner": {
           "title": "En Company Address Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "en_company_name_beneficial_owner": {
           "title": "En Company Name Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "ua_company_address_beneficial_owner": {
           "title": "Ua Company Address Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "ua_company_name_beneficial_owner": {
           "title": "Ua Company Name Beneficial Owner",
-          "type": "useful string",
-          "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+          "anyOf": [
+            {
+              "type": "useful string",
+              "pattern": "^(?!\\[)(.|\\n)+(?<!\\])$"
+            },
+            {
+              "enum": [
+                "[Не застосовується]",
+                "[Не відомо]",
+                "[Член сім'ї не надав інформацію]",
+                ""
+              ],
+              "type": "string"
+            }
+          ]
         },
         "regNumber": {
           "$ref": "#/definitions/ConfidentialInformation"

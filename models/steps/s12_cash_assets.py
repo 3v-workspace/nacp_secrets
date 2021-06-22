@@ -34,11 +34,18 @@ class Right(NACPBaseModel):
     ua_firstname: Optional[Union[UsefulStr, Unknown]]
     ua_lastname: Optional[Union[UsefulStr, Unknown]]
     ua_middlename: Optional[Union[UsefulStr, Unknown]]
+    ukr_fullname: Optional[Union[UsefulStr, Unknown]]
+    eng_fullname: Optional[Union[UsefulStr, Unknown]]
     ua_buildType: Optional[Union[BuildType, Unknown]]
     ua_city: Optional[CityType]
     ua_sameRegLivingAddress: Optional[YesNoStrNum]
-    # ua_sameRegLivingAddress: Optional[YesNoStrNum]
-    #
+
+    eng_company_address: Optional[Union[UsefulStr, Unknown]]
+    eng_company_code: Optional[Union[CompanyCode, Unknown]]
+    eng_company_name: Optional[Union[UsefulStr, Unknown]]
+    ukr_company_address: Optional[Union[UsefulStr, Unknown]]
+    ukr_company_name: Optional[UsefulStr]
+
     ua_birthday: ConfidentialInformation
     ua_postCode: ConfidentialInformation
     ua_houseNum: ConfidentialInformation
@@ -48,12 +55,12 @@ class Right(NACPBaseModel):
     ua_livingAddressFull: ConfidentialInformation
     ua_regAddressFull: ConfidentialInformation
     ua_taxNumber: ConfidentialInformation
+    ua_apartmentsNum: ConfidentialInformation
+    eng_birthday: ConfidentialInformation
+    eng_regAddress: ConfidentialInformation
+    eng_taxNumber: ConfidentialInformation
+    ukr_actualAddress: ConfidentialInformation
 
-    eng_company_address: Optional[Union[UsefulStr, Unknown]]
-    eng_company_code: Optional[Union[CompanyCode, Unknown]]
-    eng_company_name: Optional[Union[UsefulStr, Unknown]]
-    ukr_company_address: Optional[Union[UsefulStr, Unknown]]
-    ukr_company_name: Optional[UsefulStr]
 
     class Config:
         extra = Extra.forbid

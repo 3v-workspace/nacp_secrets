@@ -10,6 +10,7 @@ SpecExpenses = Literal[
     'Виникло фінансове зобов’язання суб’єкта декларування',
     'Оплата послуг',
     'Придбання',
+    'Страхові виплати',
     'Оренда',
     'Інше',
 ]
@@ -43,7 +44,7 @@ Types = Literal[
 
 class Data(NACPBaseModel):
     iteration: Optional[PositiveInt] = Field(description='Для V2 може бути пустим')
-    type: Types
+    type: Optional[Types] = Field(description='Для V2 може бути пустим')
     costAmount: Optional[PositiveInt]
     country: Optional[PositiveInt]
     date_costAmount: Optional[DateUK]

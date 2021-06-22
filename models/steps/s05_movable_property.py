@@ -48,7 +48,7 @@ class Data(NACPBaseModel):
     dateUse: Union[DateUK, Unknown] = Field(description='Дата набуття права, DD.MM.YYYY')
     manufacturerName: Union[UsefulStr, Unknown] = Field(title='Найменування виробника')
     objectType: MovablePropertyType = Field(title='Вид майна, якщо Інше то дані в otherObjectType')
-    otherObjectType: Optional[Union[UsefulStr, Literal['']]]
+    otherObjectType: Optional[Union[UsefulStr, Unknown]]
     propertyDescr: Union[UsefulStr, Unknown] = Field(title='Опис майна')
     trademark: Union[UsefulStr, Unknown] = Field(title='Торгова марка')
 

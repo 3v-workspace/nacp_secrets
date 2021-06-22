@@ -23,11 +23,11 @@ class BaseData(NACPBaseModel):
     person_who_care: Optional[List[PersonWhoCare]]
     phone: Union[Phone, Unknown]
     ua_company_code_beneficial_owner: Optional[Union[CompanyCode, Unknown]]
-    company_code_beneficial_owner: Optional[CompanyCode]
-    en_company_address_beneficial_owner: Optional[UsefulStr]
-    en_company_name_beneficial_owner: Optional[UsefulStr]
-    ua_company_address_beneficial_owner: Optional[UsefulStr]
-    ua_company_name_beneficial_owner: Optional[UsefulStr]
+    company_code_beneficial_owner: Optional[Union[CompanyCode, Unknown]]
+    en_company_address_beneficial_owner: Optional[Union[UsefulStr, Unknown]]
+    en_company_name_beneficial_owner: Optional[Union[UsefulStr, Unknown]]
+    ua_company_address_beneficial_owner: Optional[Union[UsefulStr, Unknown]]
+    ua_company_name_beneficial_owner: Optional[Union[UsefulStr, Unknown]]
 
     regNumber: ConfidentialInformation
 
@@ -47,6 +47,7 @@ class DataV2(BaseData):
     country: Union[PositiveInt, Unknown]
     name: Union[UsefulStr, Unknown]
     en_name: Optional[Union[UsefulStr, Unknown]]
+    en_address: Optional[Union[UsefulStr, Unknown]]
 
 
 class TrustsLegalEntityStep(NACPBaseModel):

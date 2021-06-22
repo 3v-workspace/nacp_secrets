@@ -31,6 +31,7 @@ class Right(NACPBaseModel):
 
     ua_birthday: ConfidentialInformation
     ua_regAddressFull: ConfidentialInformation
+    ua_regAddressFull: ConfidentialInformation
     ua_taxNumber: ConfidentialInformation
 
     class Config:
@@ -50,7 +51,7 @@ class Data(NACPBaseModel):
     persons_ua_company_name: Optional[UsefulStr]
 
     persons_eng_company_address: Optional[UsefulStr]
-    persons_eng_company_code: Optional[Unknown]
+    persons_eng_company_code: Optional[Union[CompanyCode, Unknown]]
     persons_eng_company_name: Optional[UsefulStr]
     persons_ukr_company_address: Optional[UsefulStr]
     persons_ukr_company_name: Optional[UsefulStr]
@@ -91,6 +92,7 @@ class Data(NACPBaseModel):
     persons_ua_birthday: ConfidentialInformation
     persons_ua_reg_address: ConfidentialInformation
     persons_ua_taxNumber: ConfidentialInformation
+    persons_ua_actual_address: ConfidentialInformation
 
     class Config:
         extra = Extra.forbid
