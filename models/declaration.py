@@ -162,7 +162,7 @@ class Declaration(BaseModel):
     schema_version: Literal[3, 2]
     type: Type
     user_declarant_id: int
-    date: datetime
+    date: datetime = Field(title='Дата подання декларації')
 
     class Config:
         extra = Extra.forbid

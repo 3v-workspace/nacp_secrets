@@ -11036,7 +11036,7 @@
                           "type": "integer"
                         },
                         "date": {
-                          "title": "Date",
+                          "title": "Дата подання декларації",
                           "type": "string",
                           "format": "date-time"
                         }
@@ -11110,7 +11110,7 @@
                           "type": "integer"
                         },
                         "date": {
-                          "title": "Date",
+                          "title": "Дата подання декларації",
                           "type": "string",
                           "format": "date-time"
                         }
