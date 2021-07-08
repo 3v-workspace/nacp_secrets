@@ -170,7 +170,6 @@ class Declaration(BaseModel):
 
 class AnnualDeclarationSchemaV2(Declaration):
     # data: DataV3
-    declaration_type: Literal[1]
     schema_version: Literal[2]
 
     class Config:
@@ -180,7 +179,6 @@ class AnnualDeclarationSchemaV2(Declaration):
 
 class AnnualDeclarationV3(Declaration):
     data: DataV3
-    declaration_type: Literal[1]
     schema_version: Literal[3]
 
     class Config:
@@ -190,7 +188,6 @@ class AnnualDeclarationV3(Declaration):
 
 class AnnualDeclarationV2(Declaration):
     data: DataV2
-    declaration_type: Literal[1]
     schema_version: Literal[2]
 
     class Config:

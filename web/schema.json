@@ -9841,6 +9841,17 @@
       ],
       "additionalProperties": false
     },
+    "DeclarationType": {
+      "title": "DeclarationType",
+      "description": "0 - Звітний рік в ППСЗ ???\n1 - Щорічна\n2 - Перед звільненням\n3 - Після звільнення\n4 - Кандидата на посаду",
+      "enum": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
     "models__declaration__PostCategory": {
       "title": "PostCategory",
       "description": "З листів:\n\nА,Б,В, перша категорія, друга категорія, третя категорія,\nчетверта категорія, п’ята категорія,\nшоста категорія, сьома категорія, [Не застосовується].",
@@ -10999,11 +11010,7 @@
                           "$ref": "#/definitions/models__declaration__DataV3"
                         },
                         "declaration_type": {
-                          "title": "Declaration Type",
-                          "enum": [
-                            1
-                          ],
-                          "type": "integer"
+                          "$ref": "#/definitions/DeclarationType"
                         },
                         "declaration_year": {
                           "title": "Рік декларації",
@@ -11073,11 +11080,7 @@
                           "$ref": "#/definitions/models__declaration__DataV2"
                         },
                         "declaration_type": {
-                          "title": "Declaration Type",
-                          "enum": [
-                            1
-                          ],
-                          "type": "integer"
+                          "$ref": "#/definitions/DeclarationType"
                         },
                         "declaration_year": {
                           "title": "Рік декларації",
